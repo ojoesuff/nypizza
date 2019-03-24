@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
+
+* {
+    font-family: 'Roboto', sans-serif!important;
+}
+
+.main-ad {
+    font-size: 15vw;
+    line-height: 1vw;
+}
+
+#main-ad-new {
+    font-weight: 500;
+}
+
+#main-ad-store {
+    font-weight: 300;
+}
+
+#main-ad-now {
+    font-weight: 700;
+    font-style: italic;
+}
+
+#main-ad-open {
+    font-weight: 500;
+}
