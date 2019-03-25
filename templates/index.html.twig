@@ -11,8 +11,8 @@
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body>
-    <!-- Start of first page: #one -->
-    <div data-role="page" id="main">
+    <!-- Start of main home page -->
+    <div data-role="page" id="home">
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content">
             <div class="width-960">
@@ -35,31 +35,36 @@
                     </p>
                 </div>
                 <iframe class="ui-block-b" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d78185.27297987707!2d-7.180868291784324!3d52.23812000037038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4842c6aa3dbbb39f%3A0x5c5394616bfdc1ac!2sWaterford+City%2C+Co.+Waterford!5e0!3m2!1sen!2sie!4v1553505960973" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
-            
+            </div>            
         </div>           
         {% include 'footer.html.twig' %}         
     </div><!-- /page one -->
-    
-    <!-- Start of second page: #two -->
-    <div data-role="page" id="two" data-theme="a">
-    
-        <div data-role="header">
-            <h1>Two</h1>
-        </div><!-- /header -->
-    
-        <div role="main" class="ui-content">
-            <h2>Two</h2>
-            <p>I have an id of "two" on my page container. I'm the second page container in this multi-page template.</p>
-            <p>Notice that the theme is different for this page because we've added a few <code>data-theme</code> swatch assigments here to show off how flexible it is. You can add any content or widget to these pages, but we're keeping these simple.</p>
-            <p><a href="#one" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Back to page "one"</a></p>
-    
-        </div><!-- /content -->
-    
-        <div data-role="footer">
-            <h4>Page Footer</h4>
-        </div><!-- /footer -->
-    </div><!-- /page two -->
+           
+    <!-- Start of register page -->
+    <div data-role="page" id="register">
+            {% include 'header.html.twig' %}
+            <div data-role="main" class="ui-content width-720">
+                <h1 class="red-heading">Register</h1>
+                <form id="registerForm">
+                    <input type="text" id="first-name" name="first-name" placeholder="First Name">
+                    <input type="text" id="last-name" name="last-name" placeholder="Last Name">
+                    <input type="email" id="email" name="email" placeholder="Email">
+                    <input type="password" id="password" name="password" placeholder="Password">
+                    <fieldset data-role="controlgroup" data-type="horizontal">
+                        <legend>Account Type:</legend>
+                        <input type="radio" name="account-type" id="customer" value="customer" checked="checked">
+                        <label for="customer">Customer</label>
+                        <input type="radio" name="account-type" id="driver" value="driver">
+                        <label for="driver">Driver</label>
+                        <input type="radio" name="account-type" id="manager" value="manager">
+                        <label for="manager">Manager</label>
+                    </fieldset>
+                    <button class="ui-btn ui-corner-all ui-btn-inline" id="registerButton">Register</button>
+                </form>               
+            </div>
+            
+            {% include 'footer.html.twig' %} 
+    </div><!-- /register -->
     
     <!-- Start of third page: #popup -->
     <div data-role="page" id="popup">
@@ -113,23 +118,6 @@
         </div><!-- /content -->
     </div>
     
-    <div data-role="page" id="register" data-theme="a">
-    
-           <div data-role="header">
-            <h1>Register</h1>
-          </div><!-- /header -->
-    
-          <div role="main" class="ui-content">
-            <h2>Register</h2>
-            
-           Username <input type="text" name="username" id="username" value="">
-           Password <input type="text" name="pass" id="pass" value="">
-            AccType <input type="text" name="acctype" id="acctype" value="">
-           <button class="ui-btn" id="registerButton">Submit</button>
-    
-    
-        </div><!-- /content -->
-    </div>
     </body>
     
     <script>
@@ -167,20 +155,18 @@
       
     });
     
-    $( "#registerButton" ).click(function() {
+    $("#registerForm").submit(function() {
       
-          var un = $( "#username" ).val();
-          console.log(un);
+          let firstName = $("#first-name").val();         
+          let lastName = $("#last-name").val();
+          let email = $("#email").val(); 
+          let password = $("#password").val();
+          let accountType = $("input[name='account-type']:checked").val(); //get radio button value thats checked
           
-          var pw = $( "#pass" ).val();
-          console.log(pw);
+         console.log(firstName + " " + lastName + " " + email + " " + password + " " + accountType);
           
-          var at = $( "#acctype" ).val();
-          console.log(acctype);
-          
-          
-          
-          $.post( "/backend", { type: "register", username:un, password:pw, acctype:at})
+          $.post( "/backend", { type: "register", firstName:firstName, lastName:lastName,
+          email:email, password:password, accountType:accountType})
          .done(function( data ) {
             alert( "Data Loaded: " + data );
            });

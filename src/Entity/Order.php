@@ -49,7 +49,7 @@ class Order
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\product", mappedBy="orderId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="orderId")
      */
     private $productId;
 
@@ -59,7 +59,7 @@ class Order
     private $dateCreated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orders")
      */
     private $customerId;
 

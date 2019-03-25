@@ -35,16 +35,17 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function saveNewUser($firstName, $lastName, $email, $password, $accType) {
+        $entityManager = $this->getDoctrine()->getManager();
 
-    /*
-    public function findOneBySomeField($value): ?User
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        setFirstName($firstName);
+        setLastName($lastName);
+        setEmail($email);
+        setPassword($password);
+        setAccountType($accType);
+
+        $entityManager->persist($userStaff);
+        $entityManager->flush(); 
     }
-    */
+
 }
