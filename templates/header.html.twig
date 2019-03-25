@@ -1,16 +1,31 @@
-<div data-role="header">
+<div data-role="header" id"header">
     <script>
-        $.get("api.openweathermap.org/data/2.5/weather?id=2960991&APPID=f1d47ac3f8157b5ab779e014691aa36b")
+        //converts api temp data to celsius from kelvin
+        function kelvinToCelsius(kelvin) {
+            return Math.floor(kelvin - 273.15); //formula found at https://www.rapidtables.com/convert/temperature/how-kelvin-to-celsius.html
+        }
+        //get json formatted weather data
+        $.get("http://api.openweathermap.org/data/2.5/weather?id=2960991&APPID=f1d47ac3f8157b5ab779e014691aa36b")
         .done(function(data) {
-            alert(data);
+            console.log(data);
+            //append into html div tag
+            $("#weather-api").append("<p>Waterford Weather: " + 
+                data.weather[0].main + ", Temp: " + kelvinToCelsius(data.main.temp) + 
+           "&deg;C</p>");
         })
     </script>
-        
-    <div data-role="navbar">
-        <ul>
-            <li><a href="#menu" data-transition="slide">Menu</a></li>
-            <li><a href="#register" data-transition="slide">Register</a></li>
-            <li><a href="#login" data-transition="slide">Login</a></li>
-        </ul>
-    </div><!-- /navbar -->
+    <div class="width-960">
+        <div id="weather-api">
+        </div>
+        <img src="{{asset('assets/images/logo-green.svg')}}" id="logo" alt="NY Pizza Logo"> 
+        <div data-role="navbar" id="main-nav">
+            <ul>
+                <li><a href="#menu" data-transition="slide">Menu</a></li>
+                <li><a href="#register" data-transition="slide">Register</a></li>
+                <li><a href="#login" data-transition="slide">Login</a></li>
+                <li><a href="#menu" data-transition="slide">Menu</a></li>
+                <li><a href="#menu" data-transition="slide">Menu</a></li>
+            </ul>
+        </div><!-- /navbar -->
+    </div><!-- /navbar container -->
 </div><!-- /header -->

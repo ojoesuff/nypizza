@@ -1,31 +1,43 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>NY Pizza</title>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-<link rel="stylesheet" href="{{asset('assets/themes/my-theme.min.css')}}" />
-<link rel="stylesheet" href="{{asset('assets/css/styles.css')}}" /> {#loads assets such as css and js from public folder#}
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
-
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <link rel="stylesheet" href="{{asset('assets/themes/my-theme.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}" /> {#loads assets such as css and js from public folder#}
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 </head>
-<html>
 <body>
-
-    
-    </div>
     <!-- Start of first page: #one -->
-    <div data-role="page" id="one">
+    <div data-role="page" id="main">
         {% include 'header.html.twig' %}
-        <div data-role="content" class="ui-content">
-            <h1 class="main-ad" id="main-ad-new">NEW</h1>
-            <h1 class="main-ad" id="main-ad-store">STORE</h1>
-            <h1 class="main-ad" id="main-ad-now">NOW</h1>
-            <h1 class="main-ad" id="main-ad-open">OPEN</h1>
-        </div>
+        <div data-role="main" class="ui-content">
+            <div class="width-960">
+                <h1 class="main-ad" id="main-ad-new">NEW</h1>
+                <h1 class="main-ad" id="main-ad-store">STORE</h1>
+                <h1 class="main-ad" id="main-ad-now">NOW</h1>
+                <h1 class="main-ad" id="main-ad-open">OPEN</h1>
+            </div>            
+        </div> 
+        <div data-role="main" class="ui-content">
+            <div class="width-960 ui-grid-a">
+                <div class="ui-block-a">
+                    <p id="address">
+                        127 Delicious Street<br>
+                        Tasty Town<br>
+                        Waterford City<br>
+                        Ireland<br>
+                        <br>
+                        <a href="tel:0035351875432">+353 51 875432</a>
+                    </p>
+                </div>
+                <iframe class="ui-block-b" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d78185.27297987707!2d-7.180868291784324!3d52.23812000037038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4842c6aa3dbbb39f%3A0x5c5394616bfdc1ac!2sWaterford+City%2C+Co.+Waterford!5e0!3m2!1sen!2sie!4v1553505960973" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
             
+        </div>           
         {% include 'footer.html.twig' %}         
     </div><!-- /page one -->
     
