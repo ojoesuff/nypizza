@@ -52,6 +52,11 @@ red = #C13E31
     margin: 0 auto;
 }
 
+.width-560 {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
 #address {
     text-align: right;
     font-size: 1.2rem;

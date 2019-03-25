@@ -101,9 +101,17 @@ class User
 
     public function setPassword(string $password): self
     {
-        $this->password = $password;
+        $this->password = password_hash($password, PASSWORD_DEFAULT);
 
         return $this;
+    }
+
+    //php function for hashing password with bcrypt and auto salt genaration - default cost = 10
+    public function hashPassword(string $password) : ?string 
+    {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+        return $hashedPassword;
     }
 
     public function getAccountType(): ?string

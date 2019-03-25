@@ -42,141 +42,116 @@
            
     <!-- Start of register page -->
     <div data-role="page" id="register">
-            {% include 'header.html.twig' %}
-            <div data-role="main" class="ui-content width-720">
-                <h1 class="red-heading">Register</h1>
-                <form id="registerForm">
-                    <input type="text" id="first-name" name="first-name" placeholder="First Name">
-                    <input type="text" id="last-name" name="last-name" placeholder="Last Name">
-                    <input type="email" id="email" name="email" placeholder="Email">
-                    <input type="password" id="password" name="password" placeholder="Password">
-                    <fieldset data-role="controlgroup" data-type="horizontal">
-                        <legend>Account Type:</legend>
-                        <input type="radio" name="account-type" id="customer" value="customer" checked="checked">
-                        <label for="customer">Customer</label>
-                        <input type="radio" name="account-type" id="driver" value="driver">
-                        <label for="driver">Driver</label>
-                        <input type="radio" name="account-type" id="manager" value="manager">
-                        <label for="manager">Manager</label>
-                    </fieldset>
-                    <button class="ui-btn ui-corner-all ui-btn-inline" id="registerButton">Register</button>
-                </form>               
-            </div>
-            
-            {% include 'footer.html.twig' %} 
+        {% include 'header.html.twig' %}
+        <div data-role="main" class="ui-content width-720">
+            <h1 class="red-heading">Register</h1>
+            <form id="registerForm">
+                <input type="text" id="reg-first-name" name="reg-first-name" placeholder="First Name" required>
+                <input type="text" id="reg-last-name" name="reg-last-name" placeholder="Last Name" required>
+                <input type="email" id="reg-email" name="reg-email" placeholder="Email" required>
+                <input type="password" id="reg-password" name="reg-password" placeholder="Password" required>
+                <fieldset data-role="controlgroup" data-type="horizontal">
+                    <legend>Account Type:</legend>
+                    <input type="radio" name="account-type" id="customer" value="customer" checked="checked">
+                    <label for="customer">Customer</label>
+                    <input type="radio" name="account-type" id="driver" value="driver">
+                    <label for="driver">Driver</label>
+                    <input type="radio" name="account-type" id="manager" value="manager">
+                    <label for="manager">Manager</label>
+                </fieldset>
+                <button class="ui-btn ui-corner-all ui-btn-inline" id="registerButton">Register</button>
+            </form>               
+        </div>            
+        {% include 'footer.html.twig' %} 
     </div><!-- /register -->
     
-    <!-- Start of third page: #popup -->
-    <div data-role="page" id="popup">
-    
-        <div data-role="header" data-theme="b">
-            <h1>Dialog</h1>
-        </div><!-- /header -->
-    
-        <div role="main" class="ui-content">
-            <h2>Popup</h2>
-            <p>I have an id of "popup" on my page container and only look like a dialog because the link to me had a <code>data-rel="dialog"</code> attribute which gives me this inset look and a <code>data-transition="pop"</code> attribute to change the transition to pop. Without this, I'd be styled as a normal page.</p>
-            <p><a href="#one" data-rel="back" class="ui-btn ui-shadow ui-corner-all ui-btn-inline ui-icon-back ui-btn-icon-left">Back to page "one"</a></p>
-        </div><!-- /content -->
-    
-        <div data-role="footer">
-            <h4>Page Footer</h4>
-        </div><!-- /footer -->
-    </div><!-- /page popup -->
-    
-    
-    
-    <div data-role="page" id="login" data-theme="a">
-    <div data-role="header">
-            <h1>Login page</h1>
-        </div><!-- /header -->
-    
-         <div role="main" class="ui-content">
-            <h2>Login</h2>
-           Username <input type="text" name="login_username" id="login_username" value="">
-           Password <input type="text" name="login_pass" id="login_pass" value="">
-            <button class="ui-btn" id="loginButton">Submit</button>
-            
-            
-            
-        </div><!-- /content -->
-    
-    
-    </div>
-    
-    
-    <div data-role="page" id="driver" data-theme="a">
-    
-           <div data-role="header">
-            <h1>Driver</h1>
-          </div><!-- /header -->
-    
-          <div role="main" class="ui-content">
-        
-    
-    
-        </div><!-- /content -->
-    </div>
+    <div data-role="page" id="login">
+        {% include 'header.html.twig' %}
+        <div class="width-560">
+            <h1 class="green-heading">Login</h1>
+            <form id="loginForm">
+                <input type="email" id="login-email" name="login-email" placeholder="Email" required>
+                <input type="password" id="login-password" name="login-password" placeholder="Password" required>
+                <button class="ui-btn ui-corner-all ui-btn-inline" id="loginButton">Login</button>
+            </form>
+        </div>        
+        {% include 'footer.html.twig' %}
+    </div><!-- /login -->
+
+    <div data-role="page" id="menu">
+        {% include 'header.html.twig' %}
+        {% include 'footer.html.twig' %}
+    </div><!-- /menu-->
+
+    <div data-role="page" id="checkout">
+        {% include 'header.html.twig' %}
+        {% include 'footer.html.twig' %}
+    </div><!-- /checkout-->
+
+    <div data-role="page" id="driver">
+        {% include 'header.html.twig' %}
+        {% include 'footer.html.twig' %}
+    </div><!-- /driver-->  
+
+    <div data-role="page" id="manager">
+        {% include 'header.html.twig' %}
+        {% include 'footer.html.twig' %}
+    </div><!-- /manager-->
+
+    <div data-role="page" id="customer">
+        {% include 'header.html.twig' %}
+        {% include 'footer.html.twig' %}
+    </div><!-- /customer-->
     
     </body>
     
-    <script>
-    
-    
-    $( "#loginButton" ).click(function() {
+    <script> 
+        
+        $("#registerForm").submit(function() {
       
-          var un = $( "#login_username" ).val();
-          console.log(un);
-          
-          var pw = $( "#login_pass" ).val();
-          console.log(pw);
-          
-    
-          
-          
-          $.post( "/backend", { type: "login", username:un, password:pw})
-         .done(function( data ) {
-            alert( "Data Loaded: " + data );
+            let firstName = $("#reg-first-name").val();         
+            let lastName = $("#reg-last-name").val();
+            let email = $("#reg-email").val(); 
+            let password = $("#reg-password").val();
+            let accountType = $("input[name='account-type']:checked").val(); //get radio button value thats checked
             
-            
-            if(data == 'customer'){
-                window.location="/index#customer";
-            }
-            else if(data == 'driver'){
-                window.location="/index#driver";
-            }        
-            
-           });
-      
-      
-      
-      //alert( "register button pressed!" );
-      
-      
-    });
-    
-    $("#registerForm").submit(function() {
-      
-          let firstName = $("#first-name").val();         
-          let lastName = $("#last-name").val();
-          let email = $("#email").val(); 
-          let password = $("#password").val();
-          let accountType = $("input[name='account-type']:checked").val(); //get radio button value thats checked
-          
-         console.log(firstName + " " + lastName + " " + email + " " + password + " " + accountType);
-          
-          $.post( "/backend", { type: "register", firstName:firstName, lastName:lastName,
-          email:email, password:password, accountType:accountType})
-         .done(function( data ) {
-            alert( "Data Loaded: " + data );
-           });
-      
-      
-      
-      //alert( "register button pressed!" );
-      
-      
-    });
+            $.post( "/backend", { type:"register", firstName:firstName, lastName:lastName,
+            email:email, password:password, accountType:accountType})
+            .done(function(data) {
+                if(data === "success") {
+                    window.location = "/index#login";
+                } else if(data === "error") {
+                    alert("An unexpected error has occured");
+                }
+                
+            });     
+        });
+
+        $("#loginForm").submit(function() {
+            let email = $("#login-email").val(); 
+            let password = $("#login-password").val();
+
+            $.post( "/backend", { type:"login", email:email, password:password})
+            .done(function(data) {
+                console.log(data);
+                switch(data) {
+                    case "customer":
+                        window.location = "/index#customer";
+                        break;
+                    case "driver":
+                        window.location = "/index#driver";
+                        break;  
+                    case "manager":
+                        window.location = "/index#manager";
+                        break;  
+                    case "error":
+                        alert("Username or password incorrect");
+                        break; 
+                    default:
+                        window.location = "/index#login";
+                }
+            });
+        })
     
     </script>
 </html>

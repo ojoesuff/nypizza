@@ -9,7 +9,6 @@
         function getWeather() {
             $.get("http://api.openweathermap.org/data/2.5/weather?id=2960991&APPID=f1d47ac3f8157b5ab779e014691aa36b")
             .done(function(data) {
-                console.log(data);
                 //append into html div tag
                 $(".weather-api").html("<p>Waterford Weather: " + 
                     data.weather[0].main + ", Temp: " + kelvinToCelsius(data.main.temp) + 
@@ -22,13 +21,12 @@
     <div class="width-960">
         <div class="weather-api">
         </div>
-        <img src="{{asset('assets/images/logo-green.svg')}}" id="logo" alt="NY Pizza Logo"> 
+        <a href="#home" data-transition="fade"><img src="{{asset('assets/images/logo-green.svg')}}" id="logo" alt="NY Pizza Logo"></a>
         <div data-role="navbar" id="main-nav">
             <ul>
-                <li><a href="#menu" data-transition="slide">Menu</a></li>
-                <li><a href="#register" data-transition="slide">Register</a></li>
-                <li><a href="#login" data-transition="slide">Login</a></li>
-                <li><a href="#menu" data-transition="slide">Menu</a></li>
+                <li><a href="#menu" data-transition="fade">Menu</a></li>
+                <li><a href="#register" data-transition="fade">Register</a></li>
+                <li><a href="#login" data-transition="fade">Login</a></li>
             </ul>
         </div><!-- /navbar -->
     </div><!-- /navbar container -->
