@@ -71,3 +71,44 @@ red = #C13E31
 .ui-input-text {
     margin-bottom: 25px;
 }
+
+.menu-item-container {
+    border: 1px solid black;
+    border-radius: 0.7vw;
+    flex: 1 1 160px;
+    margin: 0.3vw;
+}
+
+.menu-item-heading {
+    text-align: center;
+}
+
+.pizza-img {
+    max-width: 100%;
+}
+
+.pizza-size-selector {
+    margin: 0 auto!important;
+    width: 100%!important;
+    border: 1px solid black;
+}
+
+.quantity-flex-container {
+    display: flex;
+}
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.pizza-minus-button, .pizza-plus-button {
+    border-radius: 0!important;
+    width: 30%!important;
+}
+
+.pizza-qty { 
+    text-align: center!important; 
+}
+
+

@@ -80,6 +80,112 @@
 
     <div data-role="page" id="menu">
         {% include 'header.html.twig' %}
+        <div data-role="main" class="ui-content width-960">
+            <h1 class="red-heading">Menu</h1>
+            <h2 class="green-heading-small">Pizzas</h2>
+            <div class="flex-container">                
+                <!-- hawaiian pizza -->
+                <div class="menu-item-container ui-block-a">
+                    <h3 class="menu-item-heading">Hawaiian</h3>
+                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Hawaiian Pizza Image">
+                    <form id="hawaiian-pizza-form">
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <input type="radio" name="hawaiian-pizza-size" id="hawaiian-pizza-s" value="s" checked="checked">
+                            <label for="hawaiian-pizza-s">S &euro;5</label>
+                            <input type="radio" name="hawaiian-pizza-size" id="hawaiian-pizza-m" value="m">
+                            <label for="hawaiian-pizza-m">M &euro;10</label>
+                            <input type="radio" name="hawaiian-pizza-size" id="hawaiian-pizza-l" value="l">
+                            <label for="hawaiian-pizza-l">L &euro;11</label>
+                        </fieldset>
+                        <div class="quantity-flex-container">
+                            <button class="pizza-minus-button" id="hawaiian-pizza-minus-button">-</button>
+                            <input type="text" class="pizza-qty" name="hawaiian-pizza-qty" value="1" readonly>
+                            <button class="ui-button pizza-plus-button" id="hawaiian-pizza-plus-button">+</button>
+                        </div><button class="ui-button hawaiian-pizza-add-button">Add to Cart</button>
+                    </form>
+                </div> <!-- /hawaiian pizza -->
+                <!-- newyorker pizza -->
+                <div class="menu-item-container ui-block-a">
+                    <h3 class="menu-item-heading">New Yorker</h3>
+                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="New Yorker Pizza Image">
+                    <form id="newyorker-pizza-form">
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <input type="radio" name="newyorker-pizza-size" id="newyorker-pizza-s" value="s" checked="checked">
+                            <label for="newyorker-pizza-s">S &euro;5</label>
+                            <input type="radio" name="newyorker-pizza-size" id="newyorker-pizza-m" value="m">
+                            <label for="newyorker-pizza-m">M &euro;10</label>
+                            <input type="radio" name="newyorker-pizza-size" id="newyorker-pizza-l" value="l">
+                            <label for="newyorker-pizza-l">L &euro;11</label>
+                        </fieldset>
+                        <div class="quantity-flex-container">
+                            <button class="pizza-minus-button" id="newyorker-pizza-minus-button">-</button>
+                            <input type="text" class="pizza-qty" name="newyorker-pizza-qty" value="1" readonly>
+                            <button class="ui-button pizza-plus-button" id="newyorker-pizza-plus-button">+</button>
+                        </div><button class="ui-button newyorker-pizza-add-button">Add to Cart</button>
+                    </form>
+                </div> <!-- /newyorker pizza -->
+                <!-- housespecial pizza -->
+                <div class="menu-item-container ui-block-a">
+                    <h3 class="menu-item-heading">House Special</h3>
+                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="House Special Pizza Image">
+                    <form id="housespecial-pizza-form">
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <input type="radio" name="housespecial-pizza-size" id="housespecial-pizza-s" value="s" checked="checked">
+                            <label for="housespecial-pizza-s">S &euro;5</label>
+                            <input type="radio" name="housespecial-pizza-size" id="housespecial-pizza-m" value="m">
+                            <label for="housespecial-pizza-m">M &euro;10</label>
+                            <input type="radio" name="housespecial-pizza-size" id="housespecial-pizza-l" value="l">
+                            <label for="housespecial-pizza-l">L &euro;11</label>
+                        </fieldset>
+                        <div class="quantity-flex-container">
+                            <button class="pizza-minus-button" id="housespecial-pizza-minus-button">-</button>
+                            <input type="text" class="pizza-qty" name="housespecial-pizza-qty" value="1" readonly>
+                            <button class="ui-button pizza-plus-button" id="housespecial-pizza-plus-button">+</button>
+                        </div><button class="ui-button housespecial-pizza-add-button">Add to Cart</button>
+                    </form>
+                </div> <!-- /housespecial pizza -->
+                <!-- custom pizza -->
+                <div class="menu-item-container ui-block-a">
+                    <h3 class="menu-item-heading">Custom</h3>
+                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Custom Pizza Image">
+                    <form id="custom-pizza-form">
+                        <fieldset data-role="controlgroup" data-type="horizontal">
+                            <input type="radio" name="custom-pizza-size" id="custom-pizza-s" value="s" checked="checked">
+                            <label for="custom-pizza-s">S &euro;5</label>
+                            <input type="radio" name="custom-pizza-size" id="custom-pizza-m" value="m">
+                            <label for="custom-pizza-m">M &euro;10</label>
+                            <input type="radio" name="custom-pizza-size" id="custom-pizza-l" value="l">
+                            <label for="custom-pizza-l">L &euro;11</label>
+                        </fieldset>
+                        <div class="quantity-flex-container">
+                            <button class="pizza-minus-button" id="custom-pizza-minus-button">-</button>
+                            <input type="text" class="pizza-qty" name="custom-pizza-qty" value="1" data-enhance="false" readonly>
+                            <button class="ui-button pizza-plus-button" id="custom-pizza-plus-button">+</button>
+                        </div>
+                        
+                        <h3 class="menu-item-heading">Toppings +&euro;1 each</h3>
+                        <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+                            <input type="checkbox" name="ham" id="ham">
+                            <label for="ham">ham</label>
+                            <input type="checkbox" name="chicken" id="chicken">
+                            <label for="chicken">chicken</label>
+                            <input type="checkbox" name="pepperoni" id="pepperoni">
+                            <label for="pepperoni">pepperoni</label>
+                            <input type="checkbox" name="sweetcorn" id="sweetcorn">
+                            <label for="sweetcorn">sweetcorn</label>
+                            <input type="checkbox" name="tomato" id="tomato">
+                            <label for="tomato">tomato</label>
+                            <input type="checkbox" name="peppers" id="peppers">
+                            <label for="peppers">peppers</label>
+                        </fieldset>
+                        <button class="ui-button custom-pizza-add-button">Add to Cart</button>
+                    </form>
+                </div> <!-- /custom pizza -->
+
+
+            </div>
+            
+        </div>
         {% include 'footer.html.twig' %}
     </div><!-- /menu-->
 

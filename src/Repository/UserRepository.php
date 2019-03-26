@@ -35,17 +35,6 @@ class UserRepository extends ServiceEntityRepository
         ;
     }
     */
-    public function saveNewUser($firstName, $lastName, $email, $password, $accType) {
-        $entityManager = $this->getDoctrine()->getManager();
-
-        setFirstName($firstName);
-        setLastName($lastName);
-        setEmail($email);
-        setPassword($password);
-        setAccountType($accType);
-
-        $entityManager->persist($userStaff);
-        $entityManager->flush(); 
-    }
+    
 
 }
