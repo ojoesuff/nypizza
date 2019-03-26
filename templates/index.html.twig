@@ -99,7 +99,7 @@
                         </fieldset>
                         <div class="quantity-flex-container">
                             <button class="pizza-minus-button" id="hawaiian-pizza-minus-button">-</button>
-                            <input type="text" class="pizza-qty" name="hawaiian-pizza-qty" value="1" readonly>
+                            <input type="text" class="pizza-qty" name="hawaiian-pizza-qty" id="hawaiian-pizza-qty" value="1" readonly>
                             <button class="ui-button pizza-plus-button" id="hawaiian-pizza-plus-button">+</button>
                         </div><button class="ui-button hawaiian-pizza-add-button">Add to Cart</button>
                     </form>
@@ -119,7 +119,7 @@
                         </fieldset>
                         <div class="quantity-flex-container">
                             <button class="pizza-minus-button" id="newyorker-pizza-minus-button">-</button>
-                            <input type="text" class="pizza-qty" name="newyorker-pizza-qty" value="1" readonly>
+                            <input type="text" class="pizza-qty" name="newyorker-pizza-qty" id="newyorker-pizza-qty" value="1" readonly>
                             <button class="ui-button pizza-plus-button" id="newyorker-pizza-plus-button">+</button>
                         </div><button class="ui-button newyorker-pizza-add-button">Add to Cart</button>
                     </form>
@@ -139,7 +139,7 @@
                         </fieldset>
                         <div class="quantity-flex-container">
                             <button class="pizza-minus-button" id="housespecial-pizza-minus-button">-</button>
-                            <input type="text" class="pizza-qty" name="housespecial-pizza-qty" value="1" readonly>
+                            <input type="text" class="pizza-qty" name="housespecial-pizza-qty" id="housespecial-pizza-qty" value="1" readonly>
                             <button class="ui-button pizza-plus-button" id="housespecial-pizza-plus-button">+</button>
                         </div><button class="ui-button housespecial-pizza-add-button">Add to Cart</button>
                     </form>
@@ -159,7 +159,7 @@
                         </fieldset>
                         <div class="quantity-flex-container">
                             <button class="pizza-minus-button" id="custom-pizza-minus-button">-</button>
-                            <input type="text" class="pizza-qty" name="custom-pizza-qty" value="1" data-enhance="false" readonly>
+                            <input type="text" class="pizza-qty" name="custom-pizza-qty" id="custom-pizza-qty" value="1" data-enhance="false" readonly>
                             <button class="ui-button pizza-plus-button" id="custom-pizza-plus-button">+</button>
                         </div>
                         
@@ -181,11 +181,84 @@
                         <button class="ui-button custom-pizza-add-button">Add to Cart</button>
                     </form>
                 </div> <!-- /custom pizza -->
-
-
-            </div>
-            
-        </div>
+            </div> <!-- /flex container --> 
+            <h2 class="green-heading-small">Sides</h2>
+            <div class="flex-container width-half">                
+                <!-- potato wedges -->
+                <div class="menu-item-container">
+                    <h3 class="menu-item-heading">Potato Wedges</h3>
+                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Potato Wedges Image">
+                    <h3 class="menu-item-heading">&euro;5</h3>
+                    <form id="potato-wedges-form">                        
+                        <div class="quantity-flex-container">
+                            <button class="pizza-minus-button" id="potato-wedges-minus-button">-</button>
+                            <input type="text" class="pizza-qty" name="potato-wedges-qty" id="potato-wedges-qty" value="1" readonly>
+                            <button class="ui-button pizza-plus-button" id="potato-wedges-plus-button">+</button>
+                        </div>
+                        <button class="ui-button potato-wedges-add-button">Add to Cart</button>
+                    </form>
+                </div> <!-- /potato wedges -->   
+                <!-- garlic bread -->
+                <div class="menu-item-container">
+                    <h3 class="menu-item-heading">Garlic Bread</h3>
+                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Garlic Bread Image">
+                    <h3 class="menu-item-heading">&euro;5</h3>
+                    <form id="garlic-bread-form">                        
+                        <div class="quantity-flex-container">
+                            <button class="pizza-minus-button" id="garlic-bread-minus-button">-</button>
+                            <input type="text" class="pizza-qty" name="garlic-bread-qty" id="garlic-bread-qty" value="1" readonly>
+                            <button class="ui-button pizza-plus-button" id="garlic-bread-plus-button">+</button>
+                        </div>
+                        <button class="ui-button garlic-breads-add-button">Add to Cart</button>
+                    </form>
+                </div> <!-- /garlic bread -->              
+            </div> <!-- /flex container -->    
+            <h2 class="green-heading-small">Drinks - 330ml</h2>
+            <div class="flex-container width-3-4">                
+                <!-- coca-cola -->
+                <div class="menu-item-container">
+                    <h3 class="menu-item-heading">Coca-Cola</h3>
+                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Coca-Cola Image">
+                    <h3 class="menu-item-heading">&euro;1</h3>
+                    <form id="coca-cola-form">                        
+                        <div class="quantity-flex-container">
+                            <button class="pizza-minus-button" id="coca-cola-minus-button">-</button>
+                            <input type="text" class="pizza-qty" name="coca-cola-qty" id="coca-cola-qty" value="1" readonly>
+                            <button class="ui-button pizza-plus-button" id="coca-cola-plus-button">+</button>
+                        </div>
+                        <button class="ui-button coca-cola-add-button">Add to Cart</button>
+                    </form>
+                </div> <!-- /coca-cola -->  
+                <!-- fanta -->
+                <div class="menu-item-container">
+                    <h3 class="menu-item-heading">Fanta</h3>
+                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Fanta Image">
+                    <h3 class="menu-item-heading">&euro;1</h3>
+                    <form id="fanta-form">                        
+                        <div class="quantity-flex-container">
+                            <button class="pizza-minus-button" id="fanta-minus-button">-</button>
+                            <input type="text" class="pizza-qty" name="fanta-qty" id="fanta-qty" value="1" readonly>
+                            <button class="ui-button pizza-plus-button" id="fanta-plus-button">+</button>
+                        </div>
+                        <button class="ui-button fanta-add-button">Add to Cart</button>
+                    </form>
+                </div> <!-- /fanta --> 
+                <!-- sprite -->
+                <div class="menu-item-container">
+                    <h3 class="menu-item-heading">Sprite</h3>
+                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Sprite Image">
+                    <h3 class="menu-item-heading">&euro;1</h3>
+                    <form id="sprite-form">                        
+                        <div class="quantity-flex-container">
+                            <button class="pizza-minus-button" id="sprite-minus-button">-</button>
+                            <input type="text" class="pizza-qty" name="sprite-qty" id="sprite-qty" value="1" readonly>
+                            <button class="ui-button pizza-plus-button" id="sprite-plus-button">+</button>
+                        </div>
+                        <button class="ui-button sprite-add-button">Add to Cart</button>
+                    </form>
+                </div> <!-- /sprite -->                             
+            </div> <!-- /flex container -->           
+        </div><!-- /main --> 
         {% include 'footer.html.twig' %}
     </div><!-- /menu-->
 
@@ -258,6 +331,42 @@
                 }
             });
         })
+
+        //update item quantity for menu
+        function updateItemQuantity(item) {
+            //set jQuery selectors for each button from given parameter
+            let minusButton = "#" + item + "-minus-button";
+            let quantityInput = "#" + item + "-qty";
+            let plusButton = "#" + item + "-plus-button";
+
+            //convert string to int
+            let qty = parseInt($(quantityInput).val());
+
+            $(minusButton).click(function(event) {
+                event.preventDefault(); 
+                if(qty > 1) {
+                    qty--;
+                    $(quantityInput).val(qty);
+                }                
+            });
+
+            $(plusButton).click(function(event) {                
+                event.preventDefault();
+                qty++;
+                $(quantityInput).val(qty);                
+            });            
+        }
+
+        //initialises quantity updater for each menu item
+        updateItemQuantity("hawaiian-pizza");
+        updateItemQuantity("newyorker-pizza");
+        updateItemQuantity("housespecial-pizza");
+        updateItemQuantity("custom-pizza");
+        updateItemQuantity("potato-wedges");
+        updateItemQuantity("garlic-bread");
+        updateItemQuantity("coca-cola");
+        updateItemQuantity("fanta");
+        updateItemQuantity("sprite");
     
     </script>
 </html>
