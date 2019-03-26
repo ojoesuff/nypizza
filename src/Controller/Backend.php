@@ -76,6 +76,7 @@ class Backend extends AbstractController {
             }
         }
 
+        //add menu item to session
         if($type === "addItemToSession") {
             $name = $request->request->get("name");
             $size = $request->request->get("size");
@@ -96,6 +97,38 @@ class Backend extends AbstractController {
             return new Response(var_dump($cart));
         }
 
+
+        //add custom pizza to session
+        if($type === "addCustomPizzaToSession") {
+            $name = $request->request->get("name");
+            $size = $request->request->get("size");
+            $qty = $request->request->get("qty");
+            $ham = $request->request->get("ham");
+            $chicken = $request->request->get("chicken");
+            $pepperoni = $request->request->get("pepperoni");
+            $sweetcorn = $request->request->get("sweetcorn");
+            $tomato = $request->request->get("tomato");
+            $peppers = $request->request->get("peppers");
+
+
+            $item = array($name, $size, $qty, $ham, $chicken, 
+            $pepperoni, $sweetcorn, $tomato, $peppers);
+
+            //create cart as empty array if it doesn't exist
+            if(!$this->session->get("cart")) {
+                $this->session->set("cart", array());
+            }
+
+            $cart = $this->session->get("cart");
+
+            array_push($cart, $item);
+
+            $this->session->set("cart", $cart);
+
+            return new Response(var_dump($cart));
+        }
+
+        //clear session on logout
         if($type === "logout") {
             $this->session->clear();
 

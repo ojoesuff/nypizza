@@ -356,24 +356,7 @@
                 $(quantityInput).val(qty);                
             });            
         }
-
-        function addItemToSession(item) {
-            let name = item;
-            let size = $("input[name='hawaiian-pizza-size']:checked").attr("value");
-            let qty = parseInt($("#hawaiian-pizza-qty").val());
-            $.post( "/backend", { type:"addItemToSession", name:name, size:size,
-            qty:qty})
-            .done(function(data) {
-                console.log(data);
-            });
-        }
-
-        $("#hawaiian-pizza-form").submit(function(event) {
-            event.preventDefault();
-            addItemToSession("hawaiian-pizza");
-        })
-
-        //initialises quantity updater for each menu item
+        //instantiates quantity updater for each menu item
         updateItemQuantity("hawaiian-pizza");
         updateItemQuantity("newyorker-pizza");
         updateItemQuantity("housespecial-pizza");
@@ -382,12 +365,78 @@
         updateItemQuantity("garlic-bread");
         updateItemQuantity("coca-cola");
         updateItemQuantity("fanta");
-        updateItemQuantity("sprite");   
+        updateItemQuantity("sprite"); 
+
+        //send item data to backend to add to session
+        function addItemToSession(item) {
+            //create custom jQuery selectors from item variable
+            let sizeSelector = "input[name='" + item + "-size']:checked";
+            let qtySelector = "#" + item + "-qty";
+            //set values of html elements
+            let name = item;
+            let size = $(sizeSelector).attr("value");
+            let qty = parseInt($(qtySelector).val());
+            //send to backend
+            $.post( "/backend", { type:"addItemToSession", name:name, size:size,
+            qty:qty})
+            .done(function(data) {
+                console.log(data);
+            });
+        }
+
+        //send item data to session function
+        function addItemToCart(item) {
+            let form = "#" + item + "-form";
+            $(form).submit(function(event) {
+                event.preventDefault();
+                addItemToSession(item);
+            });
+        }
+        //instantiates all items for session storage  
+        addItemToCart("hawaiian-pizza");
+        addItemToCart("newyorker-pizza");
+        addItemToCart("housespecial-pizza");
+        addItemToCart("potato-wedges");
+        addItemToCart("garlic-bread");
+        addItemToCart("coca-cola");
+        addItemToCart("fanta");
+        addItemToCart("sprite");  
+        
+        //send item data to backend to add to session
+        function addCustomPizzaToSession() {
+            //set values of html elements
+            let name = "custom-pizza";
+            console.log(name);
+            let size = $("input[name='custom-pizza-size']:checked").attr("value");
+            console.log(size);
+            let ham = $("#ham").is(":checked");
+            let chicken = $("#chicken").is(":checked");
+            let pepperoni = $("#pepperoni").is(":checked");
+            let sweetcorn = $("#sweetcorn").is(":checked");
+            let tomato = $("#tomato").is(":checked");
+            let peppers = $("#peppers").is(":checked");
+            console.log(ham);
+            let qty = parseInt($("#custom-pizza-qty").val());
+            console.log(qty);
+            //send to backend
+            $.post( "/backend", { type:"addCustomPizzaToSession", name:name, size:size,
+            ham:ham, chicken:chicken, pepperoni:pepperoni, sweetcorn:sweetcorn,
+            tomato:tomato, peppers:peppers, qty:qty})
+            .done(function(data) {
+                console.log(data);
+            });
+        }
+        //add custom pizza to session if submitted
+        $("#custom-pizza-form").submit(function(event) {
+            event.preventDefault();
+            addCustomPizzaToSession();
+        })
         
         //clear session on logout
         $("a[href='#logout']").click(function() {
             $.post("/backend", {type:"logout"})
             .done(function(data) {
+                window.location = "index";
                 alert(data);
             });
         });
