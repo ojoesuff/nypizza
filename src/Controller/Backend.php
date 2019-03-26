@@ -65,6 +65,7 @@ class Backend extends AbstractController {
                 if($passwordCorrect) {
                     //set id in session
                     $this->session->set('id', $repo->getId());
+                    $this->session->set('loggedIn', true);
                     $accountType = $repo->getAccountType();
                     return new Response($accountType);
                 } else {
@@ -82,7 +83,7 @@ class Backend extends AbstractController {
             $size = $request->request->get("size");
             $qty = $request->request->get("qty");
 
-            $item = array($name, $size, $qty);
+            $item = array('name'=>$name, 'size'=>$size, 'qty'=>$qty);
 
             if(!$this->session->get("cart")) {
                 $this->session->set("cart", array());
@@ -111,8 +112,9 @@ class Backend extends AbstractController {
             $peppers = $request->request->get("peppers");
 
 
-            $item = array($name, $size, $qty, $ham, $chicken, 
-            $pepperoni, $sweetcorn, $tomato, $peppers);
+            $item = array('name'=>$name, 'size'=>$size, 'qty'=>$qty, 'ham'=>$ham, 
+            'chicken'=>$chicken,'pepperoni'=>$pepperoni, 'sweetcorn'=>$sweetcorn, 
+            'tomato'=>$tomato, 'peppers'=>$peppers);
 
             //create cart as empty array if it doesn't exist
             if(!$this->session->get("cart")) {

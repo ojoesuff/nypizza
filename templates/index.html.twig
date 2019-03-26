@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>NY Pizza</title>
+	<title>New York Pizza</title>
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="{{asset('assets/themes/my-theme.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}" /> {#loads assets such as css and js from public folder#}
@@ -264,6 +264,45 @@
 
     <div data-role="page" id="checkout">
         {% include 'header.html.twig' %}
+        <div data-role="main" class="ui-content width-560">
+            
+
+            {% if app.session.get('cart') is not null %}
+                <h1 class="green-heading">Checkout</h1>
+                <h2 class="red-heading-small">Order</h2>
+                <div class="checkout-flex-container">
+                    <h3 class="green-heading-tiny checkout-item">Item</h3>
+                    <h3 class="green-heading-tiny checkout-quantity">Quantity</h3>
+                </div>
+                <hr> 
+                {% for item in app.session.get('cart') %}
+                    <div class="checkout-flex-container">
+                    {% if item.name == "custom-pizza" %}
+                        <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
+                            Custom Pizza, {{item.size}}
+                            {% if item.ham == "true" %} , Ham {% endif %}
+                            {% if item.chicken == "true" %} , Chicken {% endif %}
+                            {% if item.pepperoni == "true" %} , Pepperoni {% endif %}
+                            {% if item.sweetcorn == "true" %} , Sweetcorn {% endif %}
+                            {% if item.tomato == "true" %} , Tomato {% endif %}
+                            {% if item.peppers == "true" %} , Peppers {% endif %}
+                        </p>
+                        <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-quantity">
+                            {{item.qty}}
+                        </p> 
+                    {% elseif item.name == "potato-wedges" or item.name == "garlic-bread" %}
+                        <p>Side</p>
+                    {% else %}
+                        <p>Menu Pizza</p>
+                    {% endif %}
+                    </div> 
+                {% endfor %} 
+                            
+            {% else %}
+            <p>Shopping cart is empty :(</p>
+            {% endif %}
+        </div> <!-- /main-->
+        
         {% include 'footer.html.twig' %}
     </div><!-- /checkout-->
 
@@ -440,6 +479,8 @@
                 alert(data);
             });
         });
+
+        
     
     </script>
 </html>

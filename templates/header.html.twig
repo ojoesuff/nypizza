@@ -17,7 +17,13 @@
             });
         }
 
-        getWeather();        
+        getWeather(); 
+        
+        //reload checkout page to show cart from session
+        $("a[href='#checkout']").click(function() {
+            window.location ="/index#checkout";
+            location.reload();
+        });
 
     </script>
     <div class="width-960">
@@ -30,6 +36,7 @@
                 <li><a href="#register" data-transition="fade">Register</a></li>
                 <li><a href="#login" data-transition="fade">Login</a></li>
                 <li><a href="#logout" data-transition="fade" id="logout">Logout</a></li>
+                <li><a href="#checkout" data-transition="fade">Checkout</a></li>
             </ul>
         </div><!-- /navbar -->
     </div><!-- /navbar container -->
