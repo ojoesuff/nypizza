@@ -1,4 +1,5 @@
 <div data-role="header" id"header">
+    {{ dump(app.session.all) }}
     <script>
         //converts api temp data to celsius from kelvin
         function kelvinToCelsius(kelvin) {
@@ -16,7 +17,8 @@
             });
         }
 
-        getWeather();
+        getWeather();        
+
     </script>
     <div class="width-960">
         <div class="weather-api">
@@ -27,6 +29,7 @@
                 <li><a href="#menu" data-transition="fade">Menu</a></li>
                 <li><a href="#register" data-transition="fade">Register</a></li>
                 <li><a href="#login" data-transition="fade">Login</a></li>
+                <li><a href="#logout" data-transition="fade" id="logout">Logout</a></li>
             </ul>
         </div><!-- /navbar -->
     </div><!-- /navbar container -->

@@ -357,6 +357,22 @@
             });            
         }
 
+        function addItemToSession(item) {
+            let name = item;
+            let size = $("input[name='hawaiian-pizza-size']:checked").attr("value");
+            let qty = parseInt($("#hawaiian-pizza-qty").val());
+            $.post( "/backend", { type:"addItemToSession", name:name, size:size,
+            qty:qty})
+            .done(function(data) {
+                console.log(data);
+            });
+        }
+
+        $("#hawaiian-pizza-form").submit(function(event) {
+            event.preventDefault();
+            addItemToSession("hawaiian-pizza");
+        })
+
         //initialises quantity updater for each menu item
         updateItemQuantity("hawaiian-pizza");
         updateItemQuantity("newyorker-pizza");
@@ -366,7 +382,15 @@
         updateItemQuantity("garlic-bread");
         updateItemQuantity("coca-cola");
         updateItemQuantity("fanta");
-        updateItemQuantity("sprite");
+        updateItemQuantity("sprite");   
+        
+        //clear session on logout
+        $("a[href='#logout']").click(function() {
+            $.post("/backend", {type:"logout"})
+            .done(function(data) {
+                alert(data);
+            });
+        });
     
     </script>
 </html>

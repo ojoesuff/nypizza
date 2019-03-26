@@ -8,7 +8,17 @@ use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response; 
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;  
+
 class Backend extends AbstractController {
+
+    //initialise session
+    private $session;
+
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
     /**
      * @Route("/backend", name="backend") methods={"GET", "POST"}
      */
@@ -53,6 +63,8 @@ class Backend extends AbstractController {
                 $passwordCorrect = password_verify($password, $repo->getPassword());
 
                 if($passwordCorrect) {
+                    //set id in session
+                    $this->session->set('id', $repo->getId());
                     $accountType = $repo->getAccountType();
                     return new Response($accountType);
                 } else {
@@ -62,6 +74,32 @@ class Backend extends AbstractController {
             } else {
                 return new Response("error");
             }
+        }
+
+        if($type === "addItemToSession") {
+            $name = $request->request->get("name");
+            $size = $request->request->get("size");
+            $qty = $request->request->get("qty");
+
+            $item = array($name, $size, $qty);
+
+            if(!$this->session->get("cart")) {
+                $this->session->set("cart", array());
+            }
+
+            $cart = $this->session->get("cart");
+
+            array_push($cart, $item);
+
+            $this->session->set("cart", $cart);
+
+            return new Response(var_dump($cart));
+        }
+
+        if($type === "logout") {
+            $this->session->clear();
+
+            return new Response("Session cleared!!");
         }
         return new Response("default");
     }
