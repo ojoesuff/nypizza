@@ -98,7 +98,6 @@ class Backend extends AbstractController {
             return new Response(var_dump($cart));
         }
 
-
         //add custom pizza to session
         if($type === "addCustomPizzaToSession") {
             $name = $request->request->get("name");
@@ -136,6 +135,28 @@ class Backend extends AbstractController {
 
             return new Response("Session cleared!!");
         }
+
+        //update session cart with new quantities
+        if($type === "updateCart") {
+            $qty = (int)$request->request->get("qty");
+            $index = (int)$request->request->get("index");
+
+            $cart = $this->session->get("cart");
+
+            array_splice($cart, $index, 1); 
+
+            $this->session->set("cart", $cart);
+
+            //delete item if qty is 0
+            if($qty === 0) {
+                // $this->session->remove("cart[$index]");
+                
+            }
+
+            return new Response("no");
+            
+        }
+
         return new Response("default");
     }
 

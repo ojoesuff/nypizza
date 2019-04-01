@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>New York Pizza</title>
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
-    <link rel="stylesheet" href="{{asset('assets/themes/my-theme.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/themes/nypizza-theme.min.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}" /> {#loads assets such as css and js from public folder#}
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -87,14 +87,14 @@
                 <!-- hawaiian pizza -->
                 <div class="menu-item-container ui-block-a">
                     <h3 class="menu-item-heading">Hawaiian</h3>
-                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Hawaiian Pizza Image">
+                    <img class="pizza-img" src="{{asset('assets/images/hawaiian.jpg')}}" alt="Hawaiian Pizza Image">
                     <form id="hawaiian-pizza-form">
                         <fieldset data-role="controlgroup" data-type="horizontal">
-                            <input type="radio" name="hawaiian-pizza-size" id="hawaiian-pizza-s" value="s" checked="checked">
+                            <input type="radio" name="hawaiian-pizza-size" id="hawaiian-pizza-s" value="S" checked="checked">
                             <label for="hawaiian-pizza-s">S &euro;5</label>
-                            <input type="radio" name="hawaiian-pizza-size" id="hawaiian-pizza-m" value="m">
+                            <input type="radio" name="hawaiian-pizza-size" id="hawaiian-pizza-m" value="M">
                             <label for="hawaiian-pizza-m">M &euro;10</label>
-                            <input type="radio" name="hawaiian-pizza-size" id="hawaiian-pizza-l" value="l">
+                            <input type="radio" name="hawaiian-pizza-size" id="hawaiian-pizza-l" value="L">
                             <label for="hawaiian-pizza-l">L &euro;11</label>
                         </fieldset>
                         <div class="quantity-flex-container">
@@ -107,14 +107,14 @@
                 <!-- newyorker pizza -->
                 <div class="menu-item-container ui-block-a">
                     <h3 class="menu-item-heading">New Yorker</h3>
-                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="New Yorker Pizza Image">
+                    <img class="pizza-img" src="{{asset('assets/images/newyorker.jpg')}}" alt="New Yorker Pizza Image">
                     <form id="newyorker-pizza-form">
                         <fieldset data-role="controlgroup" data-type="horizontal">
-                            <input type="radio" name="newyorker-pizza-size" id="newyorker-pizza-s" value="s" checked="checked">
+                            <input type="radio" name="newyorker-pizza-size" id="newyorker-pizza-s" value="S" checked="checked">
                             <label for="newyorker-pizza-s">S &euro;5</label>
-                            <input type="radio" name="newyorker-pizza-size" id="newyorker-pizza-m" value="m">
+                            <input type="radio" name="newyorker-pizza-size" id="newyorker-pizza-m" value="M">
                             <label for="newyorker-pizza-m">M &euro;10</label>
-                            <input type="radio" name="newyorker-pizza-size" id="newyorker-pizza-l" value="l">
+                            <input type="radio" name="newyorker-pizza-size" id="newyorker-pizza-l" value="L">
                             <label for="newyorker-pizza-l">L &euro;11</label>
                         </fieldset>
                         <div class="quantity-flex-container">
@@ -127,14 +127,14 @@
                 <!-- housespecial pizza -->
                 <div class="menu-item-container ui-block-a">
                     <h3 class="menu-item-heading">House Special</h3>
-                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="House Special Pizza Image">
+                    <img class="pizza-img" src="{{asset('assets/images/housespecial.jpg')}}" alt="House Special Pizza Image">
                     <form id="housespecial-pizza-form">
                         <fieldset data-role="controlgroup" data-type="horizontal">
-                            <input type="radio" name="housespecial-pizza-size" id="housespecial-pizza-s" value="s" checked="checked">
+                            <input type="radio" name="housespecial-pizza-size" id="housespecial-pizza-s" value="S" checked="checked">
                             <label for="housespecial-pizza-s">S &euro;5</label>
-                            <input type="radio" name="housespecial-pizza-size" id="housespecial-pizza-m" value="m">
+                            <input type="radio" name="housespecial-pizza-size" id="housespecial-pizza-m" value="M">
                             <label for="housespecial-pizza-m">M &euro;10</label>
-                            <input type="radio" name="housespecial-pizza-size" id="housespecial-pizza-l" value="l">
+                            <input type="radio" name="housespecial-pizza-size" id="housespecial-pizza-l" value="L">
                             <label for="housespecial-pizza-l">L &euro;11</label>
                         </fieldset>
                         <div class="quantity-flex-container">
@@ -150,11 +150,11 @@
                     <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Custom Pizza Image">
                     <form id="custom-pizza-form">
                         <fieldset data-role="controlgroup" data-type="horizontal">
-                            <input type="radio" name="custom-pizza-size" id="custom-pizza-s" value="s" checked="checked">
+                            <input type="radio" name="custom-pizza-size" id="custom-pizza-s" value="S" checked="checked">
                             <label for="custom-pizza-s">S &euro;5</label>
-                            <input type="radio" name="custom-pizza-size" id="custom-pizza-m" value="m">
+                            <input type="radio" name="custom-pizza-size" id="custom-pizza-m" value="M">
                             <label for="custom-pizza-m">M &euro;10</label>
-                            <input type="radio" name="custom-pizza-size" id="custom-pizza-l" value="l">
+                            <input type="radio" name="custom-pizza-size" id="custom-pizza-l" value="L">
                             <label for="custom-pizza-l">L &euro;11</label>
                         </fieldset>
                         <div class="quantity-flex-container">
@@ -187,7 +187,7 @@
                 <!-- potato wedges -->
                 <div class="menu-item-container">
                     <h3 class="menu-item-heading">Potato Wedges</h3>
-                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Potato Wedges Image">
+                    <img class="pizza-img" src="{{asset('assets/images/potato-wedges.jpg')}}" alt="Potato Wedges Image">
                     <h3 class="menu-item-heading">&euro;5</h3>
                     <form id="potato-wedges-form">                        
                         <div class="quantity-flex-container">
@@ -201,7 +201,7 @@
                 <!-- garlic bread -->
                 <div class="menu-item-container">
                     <h3 class="menu-item-heading">Garlic Bread</h3>
-                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Garlic Bread Image">
+                    <img class="pizza-img" src="{{asset('assets/images/garlic-bread.jpeg')}}" alt="Garlic Bread Image">
                     <h3 class="menu-item-heading">&euro;5</h3>
                     <form id="garlic-bread-form">                        
                         <div class="quantity-flex-container">
@@ -218,7 +218,7 @@
                 <!-- coca-cola -->
                 <div class="menu-item-container">
                     <h3 class="menu-item-heading">Coca-Cola</h3>
-                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Coca-Cola Image">
+                    <img class="pizza-img" src="{{asset('assets/images/coca-cola.jpg')}}" alt="Coca-Cola Image">
                     <h3 class="menu-item-heading">&euro;1</h3>
                     <form id="coca-cola-form">                        
                         <div class="quantity-flex-container">
@@ -232,7 +232,7 @@
                 <!-- fanta -->
                 <div class="menu-item-container">
                     <h3 class="menu-item-heading">Fanta</h3>
-                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Fanta Image">
+                    <img class="pizza-img" src="{{asset('assets/images/fanta.png')}}" alt="Fanta Image">
                     <h3 class="menu-item-heading">&euro;1</h3>
                     <form id="fanta-form">                        
                         <div class="quantity-flex-container">
@@ -246,7 +246,7 @@
                 <!-- sprite -->
                 <div class="menu-item-container">
                     <h3 class="menu-item-heading">Sprite</h3>
-                    <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Sprite Image">
+                    <img class="pizza-img" src="{{asset('assets/images/sprite.jpg')}}" alt="Sprite Image">
                     <h3 class="menu-item-heading">&euro;1</h3>
                     <form id="sprite-form">                        
                         <div class="quantity-flex-container">
@@ -265,39 +265,67 @@
     <div data-role="page" id="checkout">
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content width-560">
-            
-
-            {% if app.session.get('cart') is not null %}
-                <h1 class="green-heading">Checkout</h1>
-                <h2 class="red-heading-small">Order</h2>
-                <div class="checkout-flex-container">
-                    <h3 class="green-heading-tiny checkout-item">Item</h3>
-                    <h3 class="green-heading-tiny checkout-quantity">Quantity</h3>
-                </div>
-                <hr> 
+        {% if app.session.get('cart') is not null %}
+            <h1 class="green-heading">Checkout</h1>
+            <h2 class="red-heading-small">Order</h2>
+            <div class="checkout-flex-container">
+                <h3 class="green-heading-tiny checkout-item">Item</h3>
+                <h3 class="green-heading-tiny checkout-quantity">Quantity</h3>
+            </div>
+            <hr>
+            {% set index = 0 %}
                 {% for item in app.session.get('cart') %}
-                    <div class="checkout-flex-container">
-                    {% if item.name == "custom-pizza" %}
-                        <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
-                            Custom Pizza, {{item.size}}
-                            {% if item.ham == "true" %} , Ham {% endif %}
-                            {% if item.chicken == "true" %} , Chicken {% endif %}
-                            {% if item.pepperoni == "true" %} , Pepperoni {% endif %}
-                            {% if item.sweetcorn == "true" %} , Sweetcorn {% endif %}
-                            {% if item.tomato == "true" %} , Tomato {% endif %}
-                            {% if item.peppers == "true" %} , Peppers {% endif %}
-                        </p>
-                        <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-quantity">
-                            {{item.qty}}
-                        </p> 
-                    {% elseif item.name == "potato-wedges" or item.name == "garlic-bread" %}
-                        <p>Side</p>
-                    {% else %}
-                        <p>Menu Pizza</p>
-                    {% endif %}
-                    </div> 
-                {% endfor %} 
-                            
+                
+                <form class="checkout-flex-container update-cart-form">
+                {% if item.name == "custom-pizza" %}
+                    <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
+                        Custom Pizza, {{item.size}}
+                        {% if item.ham == "true" %} , Ham {% endif %}
+                        {% if item.chicken == "true" %} , Chicken {% endif %}
+                        {% if item.pepperoni == "true" %} , Pepperoni {% endif %}
+                        {% if item.sweetcorn == "true" %} , Sweetcorn {% endif %}
+                        {% if item.tomato == "true" %} , Tomato {% endif %}
+                        {% if item.peppers == "true" %} , Peppers {% endif %}
+                    </p>
+                    
+                {% elseif item.name == "potato-wedges" or item.name == "garlic-bread" %}
+                    <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
+                        {% if item.name == "potato-wedges" %}
+                        Potato Wedges
+                        {% elseif item.name == "garlic-bread" %}
+                        Garlic Bread
+                        {% endif %}
+                    </p>                      
+                {% elseif item.name == "coca-cola" or item.name == "fanta" or item.name == "sprite" %}                        
+                    <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
+                        {% if item.name == "coca-cola" %}
+                        Coca-Cola
+                        {% elseif item.name == "fanta" %}
+                        Fanta
+                        {% elseif item.name == "sprite" %}
+                        Sprite
+                        {% endif %}
+                    </p>
+                {% elseif item.name == "hawaiian-pizza" or item.name == "newyorker-pizza" or item.name == "housespecial-pizza" %}                        
+                    <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
+                        {% if item.name == "hawaiian-pizza" %}
+                        Hawaiian
+                        {% elseif item.name == "newyorker-pizza" %}
+                        New Yorker
+                        {% elseif item.name == "housespecial-pizza" %}
+                        House Special
+                        {% endif %}
+                        , {{item.size}}
+                    </p>
+                {% endif %}   
+                <!-- ensures no negative value is entered https://stackoverflow.com/questions/7372067/is-there-any-way-to-prevent-input-type-number-getting-negative-values-->
+                <input type="number" class="item-qty" min="0" value="{{item.qty}}" oninput="validity.valid||(value='');">            
+                <button class="update-cart-button">Delete</button>
+                <input type="hidden" class="item-index" value={{index}}>                
+                {% set index = index + 1 %} 
+            </form>
+            {% endfor %} 
+                     
             {% else %}
             <p>Shopping cart is empty :(</p>
             {% endif %}
@@ -469,7 +497,20 @@
         $("#custom-pizza-form").submit(function(event) {
             event.preventDefault();
             addCustomPizzaToSession();
-        })
+        });
+
+        //updates cart session to backend using qty and index
+        $(".update-cart-form").submit(function(event) {
+            event.preventDefault();
+            let qty = parseInt($(this).find(".item-qty").val());
+            let index = parseInt($(this).find(".item-index").val());
+            console.log(qty);
+            console.log(index);
+            $.post( "/backend", { type:"updateCart", qty:qty, index:index})
+            .done(function(data) {
+                console.log(data);
+            });
+        });
         
         //clear session on logout
         $("a[href='#logout']").click(function() {
