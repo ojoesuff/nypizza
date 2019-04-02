@@ -61,6 +61,11 @@ class CustomPizza
      */
     private $quantity;
 
+    /**
+     * @ORM\Column(type="string", length=2, nullable=true)
+     */
+    private $size;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -170,6 +175,18 @@ class CustomPizza
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getSize(): ?string
+    {
+        return $this->size;
+    }
+
+    public function setSize(?string $size): self
+    {
+        $this->size = $size;
 
         return $this;
     }

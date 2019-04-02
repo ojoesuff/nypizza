@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190402083036 extends AbstractMigration
+final class Version20190402144233 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,9 +22,10 @@ final class Version20190402083036 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE `order` DROP FOREIGN KEY FK_F5299398B171EB6C');
-        $this->addSql('DROP INDEX IDX_F5299398B171EB6C ON `order`');
-        $this->addSql('ALTER TABLE `order` DROP customer_id_id');
+        $this->addSql('ALTER TABLE custom_pizza ADD size VARCHAR(2) DEFAULT NULL');
+        $this->addSql('ALTER TABLE custom_pizza ADD CONSTRAINT FK_CD07A06FCDAEAAA FOREIGN KEY (order_id_id) REFERENCES final_order (id)');
+        $this->addSql('ALTER TABLE final_order ADD total INT NOT NULL');
+        $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04ADFCDAEAAA FOREIGN KEY (order_id_id) REFERENCES final_order (id)');
     }
 
     public function down(Schema $schema) : void
@@ -32,8 +33,9 @@ final class Version20190402083036 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE `order` ADD customer_id_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE `order` ADD CONSTRAINT FK_F5299398B171EB6C FOREIGN KEY (customer_id_id) REFERENCES user (id)');
-        $this->addSql('CREATE INDEX IDX_F5299398B171EB6C ON `order` (customer_id_id)');
+        $this->addSql('ALTER TABLE custom_pizza DROP FOREIGN KEY FK_CD07A06FCDAEAAA');
+        $this->addSql('ALTER TABLE custom_pizza DROP size');
+        $this->addSql('ALTER TABLE final_order DROP total');
+        $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04ADFCDAEAAA');
     }
 }

@@ -45,7 +45,7 @@
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content width-720">
             <h1 class="red-heading">Register</h1>
-            <form id="registerForm">
+            <form id="registerForm" method="post">
                 <input type="text" id="reg-first-name" name="reg-first-name" placeholder="First Name" required>
                 <input type="text" id="reg-last-name" name="reg-last-name" placeholder="Last Name" required>
                 <input type="email" id="reg-email" name="reg-email" placeholder="Email" required>
@@ -69,7 +69,7 @@
         {% include 'header.html.twig' %}
         <div class="width-560">
             <h1 class="green-heading">Login</h1>
-            <form id="loginForm">
+            <form id="loginForm" method="post">
                 <input type="email" id="login-email" name="login-email" placeholder="Email" required>
                 <input type="password" id="login-password" name="login-password" placeholder="Password" required>
                 <button class="ui-btn ui-corner-all ui-btn-inline" id="loginButton">Login</button>
@@ -88,7 +88,7 @@
                 <div class="menu-item-container ui-block-a">
                     <h3 class="menu-item-heading">Hawaiian</h3>
                     <img class="pizza-img" src="{{asset('assets/images/hawaiian.jpg')}}" alt="Hawaiian Pizza Image">
-                    <form id="hawaiian-pizza-form">
+                    <form id="hawaiian-pizza-form" method="post">
                         <fieldset data-role="controlgroup" data-type="horizontal">
                             <input type="radio" name="hawaiian-pizza-size" id="hawaiian-pizza-s" value="S" checked="checked">
                             <label for="hawaiian-pizza-s">S &euro;5</label>
@@ -108,7 +108,7 @@
                 <div class="menu-item-container ui-block-a">
                     <h3 class="menu-item-heading">New Yorker</h3>
                     <img class="pizza-img" src="{{asset('assets/images/newyorker.jpg')}}" alt="New Yorker Pizza Image">
-                    <form id="newyorker-pizza-form">
+                    <form id="newyorker-pizza-form" method="post">
                         <fieldset data-role="controlgroup" data-type="horizontal">
                             <input type="radio" name="newyorker-pizza-size" id="newyorker-pizza-s" value="S" checked="checked">
                             <label for="newyorker-pizza-s">S &euro;5</label>
@@ -128,7 +128,7 @@
                 <div class="menu-item-container ui-block-a">
                     <h3 class="menu-item-heading">House Special</h3>
                     <img class="pizza-img" src="{{asset('assets/images/housespecial.jpg')}}" alt="House Special Pizza Image">
-                    <form id="housespecial-pizza-form">
+                    <form id="housespecial-pizza-form" method="post">
                         <fieldset data-role="controlgroup" data-type="horizontal">
                             <input type="radio" name="housespecial-pizza-size" id="housespecial-pizza-s" value="S" checked="checked">
                             <label for="housespecial-pizza-s">S &euro;5</label>
@@ -148,7 +148,7 @@
                 <div class="menu-item-container ui-block-a">
                     <h3 class="menu-item-heading">Custom</h3>
                     <img class="pizza-img" src="{{asset('assets/images/custom.jpg')}}" alt="Custom Pizza Image">
-                    <form id="custom-pizza-form">
+                    <form id="custom-pizza-form" method="post">
                         <fieldset data-role="controlgroup" data-type="horizontal">
                             <input type="radio" name="custom-pizza-size" id="custom-pizza-s" value="S" checked="checked">
                             <label for="custom-pizza-s">S &euro;5</label>
@@ -189,7 +189,7 @@
                     <h3 class="menu-item-heading">Potato Wedges</h3>
                     <img class="pizza-img" src="{{asset('assets/images/potato-wedges.jpg')}}" alt="Potato Wedges Image">
                     <h3 class="menu-item-heading">&euro;5</h3>
-                    <form id="potato-wedges-form">                        
+                    <form id="potato-wedges-form" method="post">                        
                         <div class="quantity-flex-container">
                             <button class="pizza-minus-button" id="potato-wedges-minus-button">-</button>
                             <input type="text" class="pizza-qty" name="potato-wedges-qty" id="potato-wedges-qty" value="1" readonly>
@@ -203,7 +203,7 @@
                     <h3 class="menu-item-heading">Garlic Bread</h3>
                     <img class="pizza-img" src="{{asset('assets/images/garlic-bread.jpeg')}}" alt="Garlic Bread Image">
                     <h3 class="menu-item-heading">&euro;5</h3>
-                    <form id="garlic-bread-form">                        
+                    <form id="garlic-bread-form" method="post">                        
                         <div class="quantity-flex-container">
                             <button class="pizza-minus-button" id="garlic-bread-minus-button">-</button>
                             <input type="text" class="pizza-qty" name="garlic-bread-qty" id="garlic-bread-qty" value="1" readonly>
@@ -220,7 +220,7 @@
                     <h3 class="menu-item-heading">Coca-Cola</h3>
                     <img class="pizza-img" src="{{asset('assets/images/coca-cola.jpg')}}" alt="Coca-Cola Image">
                     <h3 class="menu-item-heading">&euro;1</h3>
-                    <form id="coca-cola-form">                        
+                    <form id="coca-cola-form" method="post">                        
                         <div class="quantity-flex-container">
                             <button class="pizza-minus-button" id="coca-cola-minus-button">-</button>
                             <input type="text" class="pizza-qty" name="coca-cola-qty" id="coca-cola-qty" value="1" readonly>
@@ -234,7 +234,7 @@
                     <h3 class="menu-item-heading">Fanta</h3>
                     <img class="pizza-img" src="{{asset('assets/images/fanta.png')}}" alt="Fanta Image">
                     <h3 class="menu-item-heading">&euro;1</h3>
-                    <form id="fanta-form">                        
+                    <form id="fanta-form" method="post">                        
                         <div class="quantity-flex-container">
                             <button class="pizza-minus-button" id="fanta-minus-button">-</button>
                             <input type="text" class="pizza-qty" name="fanta-qty" id="fanta-qty" value="1" readonly>
@@ -248,7 +248,7 @@
                     <h3 class="menu-item-heading">Sprite</h3>
                     <img class="pizza-img" src="{{asset('assets/images/sprite.jpg')}}" alt="Sprite Image">
                     <h3 class="menu-item-heading">&euro;1</h3>
-                    <form id="sprite-form">                        
+                    <form id="sprite-form" method="post">                        
                         <div class="quantity-flex-container">
                             <button class="pizza-minus-button" id="sprite-minus-button">-</button>
                             <input type="text" class="pizza-qty" name="sprite-qty" id="sprite-qty" value="1" readonly>
@@ -276,7 +276,7 @@
             <hr>
             {% set index = 0 %}
                 {% for item in app.session.get('cart') %}                
-                <form class="update-cart-form">
+                <form class="update-cart-form" method="post">
                     <div class="checkout-flex-container">
                         {% if item.name == "custom-pizza" %}
                         <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
@@ -335,7 +335,7 @@
                 <h2 class="green-heading-small checkout-quantity">&euro;{{ app.session.get("cartTotal") }}</h2>
             </div>
             <hr>
-            <form id="checkout-form">                        
+            <form id="checkout-form" method="post">                        
                 <input type="text" id="address-line1" name="address-line1" placeholder="Address Line 1" required>
                 <input type="text" id="address-line2" name="address-line2" placeholder="Address Line 2" required>
                 <input type="text" id="address-line3" name="address-line3" placeholder="Address Line 3">
@@ -394,6 +394,48 @@
 
     <div data-role="page" id="manager">
         {% include 'header.html.twig' %}
+        <div data-role="main" class="ui-content width-720">
+            <h1 class="red-heading">Welcome, Your Name</h1> 
+            <h2 class="green-heading-small">Revenue Report</h2> 
+            <div data-role="collapsible" data-theme="b" id="daily-report">
+                <h4>Daily</h4>
+                <form id="daily-form" method="post">
+                    <label for="daily-date">Select a Date</label> 
+                    <input type="date" name="daily-date" id="daily-date">
+                    <label for="daily-total-order">Total Orders</label>
+                    <input type="text" name="daily-total-order" readonly id="daily-total-order">
+                    <label for="daily-total-revenue">Total Revenue</label>
+                    <input type="text" readonly id="daily-total-revenue">                                
+                    <button data-inline="true" id="daily-update">Update</button>
+                </form>                
+            </div>
+            <div data-role="collapsible" data-theme="b" id="weekly-report">
+                <h4>Weekly</h4>
+                <form id="weekly-form" method="post">
+                    <label for="weekly-date">Select a Week</label> 
+                    <input type="week" name="weekly-date" id="weekly-date">
+                    <label for="weekly-total-order">Total Orders</label>
+                    <input type="text" name="weekly-total-order" readonly id="weekly-total-order">
+                    <label for="weekly-total-revenue">Total Revenue</label>
+                    <input type="text" readonly id="weekly-total-revenue">                                
+                    <button data-inline="true" id="weekly-update">Update</button>
+                </form>                
+            </div>
+            <div data-role="collapsible" data-theme="b" id="monthly-report">
+                <h4>Monthly</h4>
+                <form id="monthly-form" method="post">
+                    <label for="monthly-date">Select a Month</label> 
+                    <input type="month" name="monthly-date" id="monthly-date">
+                    <label for="monthly-total-order">Total Orders</label>
+                    <input type="text" name="monthly-total-order" readonly id="monthly-total-order">
+                    <label for="monthly-total-revenue">Total Revenue</label>
+                    <input type="text" readonly id="monthly-total-revenue">                                
+                    <button data-inline="true" id="monthly-update">Update</button>
+                </form>                
+            </div>
+            <h2 class="green-heading">Pending Orders</h2>         
+        </div>
+        
         {% include 'footer.html.twig' %}
     </div><!-- /manager-->
 
@@ -405,7 +447,7 @@
     <div data-role="page" id="checkout-complete">
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content width-560">
-            <h3 class="green-heading-small">Order successfuly placed, you lucky human!</h3>
+            <h3 class="green-heading-small">Order successfully placed, you lucky human!</h3>
         </div>
         
         {% include 'footer.html.twig' %}
@@ -578,7 +620,7 @@
             //send to backend
             $.post( "/backend", { type:"addCustomPizzaToSession", name:name, size:size,
             ham:ham, chicken:chicken, pepperoni:pepperoni, sweetcorn:sweetcorn,
-            tomato:tomato, peppers:peppers, qty:qty, total:total})
+            tomato:tomato, peppers:peppers, qty:qty, total:total, size:size})
             .done(function(data) {
                 console.log(data);
             });
@@ -643,9 +685,15 @@
                 window.location = "/index#checkout-complete";
                 location.reload();
             });
-        })
-
+        }) 
         
+        $("#daily-form").submit(function(event) {
+            event.preventDefault();
+            $.post("/backend", {type:"dailyUpdate"})
+            .done(function(data) {
+                console.log(data);
+            });
+        });
     
     </script>
 </html>

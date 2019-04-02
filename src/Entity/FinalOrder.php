@@ -73,6 +73,11 @@ class FinalOrder
      */
     private $orders;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $total;
+
     public function __construct()
     {
         $this->productId = new ArrayCollection();
@@ -271,6 +276,18 @@ class FinalOrder
                 $order->setCustomPizzaId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTotal(): ?int
+    {
+        return $this->total;
+    }
+
+    public function setTotal(int $total): self
+    {
+        $this->total = $total;
 
         return $this;
     }

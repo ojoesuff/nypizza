@@ -69,6 +69,7 @@ class Backend extends AbstractController {
                     //set id in session
                     $this->session->set('id', $repo->getId());
                     $this->session->set('loggedIn', true);
+                    $this->session->set('name', $repo->getFirstName());
                     $accountType = $repo->getAccountType();
                     return new Response($accountType);
                 } else {
@@ -214,7 +215,8 @@ class Backend extends AbstractController {
             $addressLine2 = $request->request->get("addressLine2");
             $addressLine3 = $request->request->get("addressLine3");
             $county = $request->request->get("county");
-            $eircode = $request->request->get("eircode");            
+            $eircode = $request->request->get("eircode");  
+            $total = $this->session->get("cartTotal");          
 
             $order->setAddressLine1($addressLine1);
             $order->setAddressLine2($addressLine2);
@@ -224,6 +226,7 @@ class Backend extends AbstractController {
             $order->setOrderStatus("Pending");
             $order->setDateCreated(date_create());
             $order->setCustomerId($customerRef);
+            $order->setTotal($total);
 
             $entityManager->persist($order);
             $entityManager->flush();
@@ -274,8 +277,9 @@ class Backend extends AbstractController {
                     } else {
                         $customPizza->setPeppers(false);
                     }
-                    $customPizza->setTotal(20);
+                    $customPizza->setTotal($item["total"]);
                     $customPizza->setQuantity($item["qty"]);
+                    $customPizza->setSize($item["size"]);
                     $customPizza->setOrderId($lastOrder);
 
                     $entityManager->persist($customPizza); 
@@ -294,7 +298,7 @@ class Backend extends AbstractController {
                     $product->setName($name);
                     $product->setSize($size);
                     $product->setQuantity($qty);
-                    $product->setPrice(206654);
+                    $product->setPrice($item["total"]);
                     $product->setOrderId($lastOrder);
 
                     $entityManager->persist($product); 
@@ -306,6 +310,12 @@ class Backend extends AbstractController {
             $this->session->remove("cart");    
             $this->session->remove("cartTotal");    
           
+        }
+
+        if($type === "dailyUpdate") {
+            $totalOrder = $this->getDoctrine()->getRepository(FinalOrder::class)->sumOfDailyOrderRevenue();
+
+            return new Response($totalOrder);
         }
 
         return new Response("default");

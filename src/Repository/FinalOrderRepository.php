@@ -47,4 +47,20 @@ class FinalOrderRepository extends ServiceEntityRepository
         ;
     }
     */
+    // public function sumOfTotalOrders()
+    // {
+    //     return $this->createQueryBuilder('fc')
+    //         ->andWhere('fc.category = :category')
+    //         ->setParameter('category', $category)
+    //         ->select('SUM(fc.numberPrinted) as fortunesPrinted')
+    //         ->getQuery()
+    //         ->getSingleScalarResult();
+    // }
+
+    public function sumOfDailyOrderRevenue() {
+        return $this->createQueryBuilder('fo')
+        ->select('SUM(fo.total) as totalRevenue')
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
 }
