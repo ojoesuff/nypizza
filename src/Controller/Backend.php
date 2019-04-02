@@ -85,18 +85,28 @@ class Backend extends AbstractController {
             $name = $request->request->get("name");
             $size = $request->request->get("size");
             $qty = $request->request->get("qty");
+            $total = $request->request->get("total") * $qty;
 
-            $item = array('name'=>$name, 'size'=>$size, 'qty'=>$qty);
+            $item = array('name'=>$name, 'size'=>$size, 'qty'=>$qty, 'total'=>$total);
 
+            //create cart if it doesn't exist
             if(!$this->session->get("cart")) {
                 $this->session->set("cart", array());
             }
+            //create cart total if doesn't exist
+            if(!$this->session->get("cartTotal")) {
+                $this->session->set("cartTotal", 0);
+            }
 
+            //push item into cart array
             $cart = $this->session->get("cart");
-
             array_push($cart, $item);
-
             $this->session->set("cart", $cart);
+            //increment cart total by item total
+            $cartTotal = $this->session->get("cartTotal");
+            $cartTotal += $total;
+            $this->session->set("cartTotal", $cartTotal);        
+
 
             return new Response(var_dump($cart));
         }
@@ -112,22 +122,30 @@ class Backend extends AbstractController {
             $sweetcorn = $request->request->get("sweetcorn");
             $tomato = $request->request->get("tomato");
             $peppers = $request->request->get("peppers");
+            $total = $request->request->get("total") * $qty;
 
 
             $item = array('name'=>$name, 'size'=>$size, 'qty'=>$qty, 'ham'=>$ham, 
             'chicken'=>$chicken,'pepperoni'=>$pepperoni, 'sweetcorn'=>$sweetcorn, 
-            'tomato'=>$tomato, 'peppers'=>$peppers);
+            'tomato'=>$tomato, 'peppers'=>$peppers, 'total' => $total);
 
             //create cart as empty array if it doesn't exist
             if(!$this->session->get("cart")) {
                 $this->session->set("cart", array());
             }
+            //create cart total if doesn't exist
+            if(!$this->session->get("cartTotal")) {
+                $this->session->set("cartTotal", 0);
+            }
 
+            //push item into cart array
             $cart = $this->session->get("cart");
-
             array_push($cart, $item);
-
             $this->session->set("cart", $cart);
+            //increment cart total by item total
+            $cartTotal = $this->session->get("cartTotal");
+            $cartTotal += $total;
+            $this->session->set("cartTotal", $cartTotal); 
 
             return new Response(var_dump($cart));
         }
@@ -141,20 +159,40 @@ class Backend extends AbstractController {
 
         //update session cart with new quantities
         if($type === "updateCart") {
-            $qty = (int)$request->request->get("qty");
+            $newQty = (int)$request->request->get("qty");
             $index = (int)$request->request->get("index");
 
-            $cart = $this->session->get("cart");  
+            $cart = $this->session->get("cart");
+
+            $cartTotal = $this->session->get("cartTotal");
+            $total =  $cart[$index]["total"];
 
              //delete item if qty is 0
-            if($qty === 0) {
+            if($newQty === 0) {
                 //deletes item from array and reindexes
-                array_splice($cart, $index, 1);                 
+                array_splice($cart, $index, 1); 
+                $cartTotal -= $total;               
             } else {
-                //update new quantity in cart
-                $cart[$index]["qty"] = $qty;
-            }
+                //get cart item price and update item total
+                $oldQty = $cart[$index]["qty"]; 
+                $price =  $total / $oldQty;                 
+                $qtyDifference = $newQty - $cart[$index]["qty"];
 
+                if($qtyDifference > 0) {
+                    //if new qty is greater than old, add more to cart total
+                    $cartTotal += $price * $qtyDifference;
+                } elseif ($qtyDifference < 0) {
+                    //if new qty is lass than old, remove value from cart total
+                    $cartTotal -= $price * abs($qtyDifference);
+                }      
+                
+                $cart[$index]["total"] = $price * $newQty;
+                //update new quantity in cart
+                $cart[$index]["qty"] = $newQty;
+                
+            }
+            
+            $this->session->set("cartTotal", $cartTotal);
             //push updated cart to session
             $this->session->set("cart", $cart);
 
@@ -169,9 +207,7 @@ class Backend extends AbstractController {
 
             $customerId = $this->session->get("id");            
             //add reference to customer
-            $customerRef = $entityManager->getReference('App\Entity\User', $customerId);
-
-            
+            $customerRef = $entityManager->getReference('App\Entity\User', $customerId);            
 
             //add address to DB
             $addressLine1 = $request->request->get("addressLine1");
@@ -264,11 +300,12 @@ class Backend extends AbstractController {
                     $entityManager->persist($product); 
                     $entityManager->flush(); 
 
-                }
+                }                
             }            
-
-              
-            
+            //remove cart from session
+            $this->session->remove("cart");    
+            $this->session->remove("cartTotal");    
+          
         }
 
         return new Response("default");

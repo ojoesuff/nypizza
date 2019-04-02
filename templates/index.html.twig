@@ -275,8 +275,7 @@
             </div>
             <hr>
             {% set index = 0 %}
-                {% for item in app.session.get('cart') %}
-                
+                {% for item in app.session.get('cart') %}                
                 <form class="update-cart-form">
                     <div class="checkout-flex-container">
                         {% if item.name == "custom-pizza" %}
@@ -288,8 +287,7 @@
                             {% if item.sweetcorn == "true" %} , Sweetcorn {% endif %}
                             {% if item.tomato == "true" %} , Tomato {% endif %}
                             {% if item.peppers == "true" %} , Peppers {% endif %}
-                        </p>
-                            
+                        </p>                            
                         {% elseif item.name == "potato-wedges" or item.name == "garlic-bread" %}
                             <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
                                 {% if item.name == "potato-wedges" %}
@@ -329,9 +327,14 @@
                 <input type="hidden" class="item-index" value={{index}}>                
                 {% set index = index + 1 %} 
                 
-            </form>
+            </form>            
             {% endfor %} 
-            <h2 class="red-heading-small">Delivery Address</h2>
+            <hr>
+            <div class="checkout-flex-container">
+                <h2 class="green-heading-small checkout-item">Total</h2>
+                <h2 class="green-heading-small checkout-quantity">&euro;{{ app.session.get("cartTotal") }}</h2>
+            </div>
+            <hr>
             <form id="checkout-form">                        
                 <input type="text" id="address-line1" name="address-line1" placeholder="Address Line 1" required>
                 <input type="text" id="address-line2" name="address-line2" placeholder="Address Line 2" required>
@@ -396,6 +399,15 @@
 
     <div data-role="page" id="customer">
         {% include 'header.html.twig' %}
+        {% include 'footer.html.twig' %}
+    </div><!-- /customer-->
+
+    <div data-role="page" id="checkout-complete">
+        {% include 'header.html.twig' %}
+        <div data-role="main" class="ui-content width-560">
+            <h3 class="green-heading-small">Order successfuly placed, you lucky human!</h3>
+        </div>
+        
         {% include 'footer.html.twig' %}
     </div><!-- /customer-->
     
@@ -491,11 +503,21 @@
             let qtySelector = "#" + item + "-qty";
             //set values of html elements
             let name = item;
+            let total = 0;
             let size = $(sizeSelector).attr("value");
+            if(size) {
+                total += pizzaSizePrice(size);
+            } else {
+                if(item === "potato-wedges" || item === "garlic-bread") {
+                    total += 5;
+                } else {
+                    total++;
+                }
+            }
             let qty = parseInt($(qtySelector).val());
             //send to backend
             $.post( "/backend", { type:"addItemToSession", name:name, size:size,
-            qty:qty})
+            qty:qty, total:total})
             .done(function(data) {
                 console.log(data);
             });
@@ -522,26 +544,59 @@
         //send item data to backend to add to session
         function addCustomPizzaToSession() {
             //set values of html elements
+            let total = 0;
             let name = "custom-pizza";
-            console.log(name);
             let size = $("input[name='custom-pizza-size']:checked").attr("value");
-            console.log(size);
-            let ham = $("#ham").is(":checked");
+            //add pizza price to total based on size
+            total += pizzaSizePrice(size);
+            let ham = $("#ham").is(":checked");            
             let chicken = $("#chicken").is(":checked");
             let pepperoni = $("#pepperoni").is(":checked");
             let sweetcorn = $("#sweetcorn").is(":checked");
             let tomato = $("#tomato").is(":checked");
             let peppers = $("#peppers").is(":checked");
-            console.log(ham);
+            //update total if topping exist
+            if(ham) {
+                total++;
+            }
+            if(chicken) {
+                total++;
+            }
+            if(pepperoni) {
+                total++;
+            }
+            if(sweetcorn) {
+                total++;
+            }
+            if(tomato) {
+                total++;
+            }
+            if(peppers) {
+                total++;
+            }
             let qty = parseInt($("#custom-pizza-qty").val());
-            console.log(qty);
             //send to backend
             $.post( "/backend", { type:"addCustomPizzaToSession", name:name, size:size,
             ham:ham, chicken:chicken, pepperoni:pepperoni, sweetcorn:sweetcorn,
-            tomato:tomato, peppers:peppers, qty:qty})
+            tomato:tomato, peppers:peppers, qty:qty, total:total})
             .done(function(data) {
                 console.log(data);
             });
+        }
+
+        //checks pizza size and return price to add to total
+        function pizzaSizePrice(size) {
+            switch(size) {
+                case "S":
+                    return 5;
+                    break;
+                case "M":
+                    return 10;
+                    break;
+                case "L":
+                    return 11;
+                    break;
+            }
         }
         //add custom pizza to session if submitted
         $("#custom-pizza-form").submit(function(event) {
@@ -567,7 +622,7 @@
         $("a[href='#logout']").click(function() {
             $.post("/backend", {type:"logout"})
             .done(function(data) {
-                window.location = "index";
+                window.location = "/index";
                 alert(data);
             });
         });
@@ -584,8 +639,9 @@
             $.post("/backend", {type:"submitOrder", addressLine1:addressLine1,
             addressLine2:addressLine2, addressLine3:addressLine3,
             county:county, eircode:eircode})
-            .done(function(data) {
-                console.log(data);
+            .done(function(data) {                
+                window.location = "/index#checkout-complete";
+                location.reload();
             });
         })
 
