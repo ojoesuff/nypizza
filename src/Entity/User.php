@@ -44,7 +44,7 @@ class User
     private $accountType;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="customerId")
+     * @ORM\OneToMany(targetEntity="App\Entity\FinalOrder", mappedBy="customerId")
      */
     private $orders;
 
@@ -127,14 +127,14 @@ class User
     }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection|FinalOrder[]
      */
     public function getOrders(): Collection
     {
         return $this->orders;
     }
 
-    public function addOrder(Order $order): self
+    public function addOrder(FinalOrder $order): self
     {
         if (!$this->orders->contains($order)) {
             $this->orders[] = $order;
@@ -144,7 +144,7 @@ class User
         return $this;
     }
 
-    public function removeOrder(Order $order): self
+    public function removeOrder(FinalOrder $order): self
     {
         if ($this->orders->contains($order)) {
             $this->orders->removeElement($order);

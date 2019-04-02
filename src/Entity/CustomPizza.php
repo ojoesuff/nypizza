@@ -17,7 +17,7 @@ class CustomPizza
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="customPizzas")
+     * @ORM\ManyToOne(targetEntity="App\Entity\FinalOrder", inversedBy="customPizzas")
      */
     private $orderId;
 
@@ -66,12 +66,12 @@ class CustomPizza
         return $this->id;
     }
 
-    public function getOrderId(): ?Order
+    public function getOrderId(): ?FinalOrder
     {
         return $this->orderId;
     }
 
-    public function setOrderId(?Order $orderId): self
+    public function setOrderId(?FinalOrder $orderId): self
     {
         $this->orderId = $orderId;
 

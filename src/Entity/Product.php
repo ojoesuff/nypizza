@@ -32,7 +32,7 @@ class Product
     private $price;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="productId")
+     * @ORM\ManyToOne(targetEntity="App\Entity\FinalOrder", inversedBy="productId")
      */
     private $orderId;
     
@@ -82,12 +82,12 @@ class Product
         return $this;
     }
 
-    public function getOrderId(): ?Order
+    public function getOrderId(): ?FinalOrder
     {
         return $this->orderId;
     }
 
-    public function setOrderId(?Order $orderId): self
+    public function setOrderId(?FinalOrder $orderId): self
     {
         $this->orderId = $orderId;
 

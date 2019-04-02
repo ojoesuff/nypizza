@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\FinalOrderRepository")
  */
-class Order
+class FinalOrder
 {
     /**
      * @ORM\Id()
@@ -46,7 +46,7 @@ class Order
     /**
      * @ORM\Column(type="string", length=20)
      */
-    private $status;
+    private $orderStatus;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="orderId")
@@ -69,12 +69,7 @@ class Order
     private $customPizzas;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $quantity;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="customPizzaId")
+     * @ORM\OneToMany(targetEntity="App\Entity\FinalOrder", mappedBy="customPizzaId")
      */
     private $orders;
 
@@ -150,14 +145,14 @@ class Order
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getOrderStatus(): ?string
     {
-        return $this->status;
+        return $this->orderStatus;
     }
 
-    public function setStatus(string $status): self
+    public function setOrderStatus(string $orderStatus): self
     {
-        $this->status = $status;
+        $this->orderStatus = $orderStatus;
 
         return $this;
     }
@@ -205,12 +200,12 @@ class Order
         return $this;
     }
 
-    public function getCustomerId(): ?user
+    public function getCustomerId(): ?User
     {
         return $this->customerId;
     }
 
-    public function setCustomerId(?user $customerId): self
+    public function setCustomerId(?User $customerId): self
     {
         $this->customerId = $customerId;
 
@@ -248,27 +243,16 @@ class Order
         return $this;
     }
 
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
-    }
 
     /**
-     * @return Collection|Order[]
+     * @return Collection|FinalOrder[]
      */
     public function getOrders(): Collection
     {
         return $this->orders;
     }
 
-    public function addOrder(Order $order): self
+    public function addOrder(FinalOrder $order): self
     {
         if (!$this->orders->contains($order)) {
             $this->orders[] = $order;
@@ -278,7 +262,7 @@ class Order
         return $this;
     }
 
-    public function removeOrder(Order $order): self
+    public function removeOrder(FinalOrder $order): self
     {
         if ($this->orders->contains($order)) {
             $this->orders->removeElement($order);
