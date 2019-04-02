@@ -265,8 +265,9 @@
     <div data-role="page" id="checkout">
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content width-560">
+        <h1 class="green-heading">Checkout</h1>
         {% if app.session.get('cart') is not null %}
-            <h1 class="green-heading">Checkout</h1>
+            
             <h2 class="red-heading-small">Order</h2>
             <div class="checkout-flex-container">
                 <h3 class="green-heading-tiny checkout-item">Item</h3>
@@ -276,56 +277,105 @@
             {% set index = 0 %}
                 {% for item in app.session.get('cart') %}
                 
-                <form class="checkout-flex-container update-cart-form">
-                {% if item.name == "custom-pizza" %}
-                    <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
-                        Custom Pizza, {{item.size}}
-                        {% if item.ham == "true" %} , Ham {% endif %}
-                        {% if item.chicken == "true" %} , Chicken {% endif %}
-                        {% if item.pepperoni == "true" %} , Pepperoni {% endif %}
-                        {% if item.sweetcorn == "true" %} , Sweetcorn {% endif %}
-                        {% if item.tomato == "true" %} , Tomato {% endif %}
-                        {% if item.peppers == "true" %} , Peppers {% endif %}
-                    </p>
-                    
-                {% elseif item.name == "potato-wedges" or item.name == "garlic-bread" %}
-                    <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
-                        {% if item.name == "potato-wedges" %}
-                        Potato Wedges
-                        {% elseif item.name == "garlic-bread" %}
-                        Garlic Bread
-                        {% endif %}
-                    </p>                      
-                {% elseif item.name == "coca-cola" or item.name == "fanta" or item.name == "sprite" %}                        
-                    <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
-                        {% if item.name == "coca-cola" %}
-                        Coca-Cola
-                        {% elseif item.name == "fanta" %}
-                        Fanta
-                        {% elseif item.name == "sprite" %}
-                        Sprite
-                        {% endif %}
-                    </p>
-                {% elseif item.name == "hawaiian-pizza" or item.name == "newyorker-pizza" or item.name == "housespecial-pizza" %}                        
-                    <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
-                        {% if item.name == "hawaiian-pizza" %}
-                        Hawaiian
-                        {% elseif item.name == "newyorker-pizza" %}
-                        New Yorker
-                        {% elseif item.name == "housespecial-pizza" %}
-                        House Special
-                        {% endif %}
-                        , {{item.size}}
-                    </p>
-                {% endif %}   
-                <!-- ensures no negative value is entered https://stackoverflow.com/questions/7372067/is-there-any-way-to-prevent-input-type-number-getting-negative-values-->
-                <input type="number" class="item-qty" min="0" value="{{item.qty}}" oninput="validity.valid||(value='');">            
-                <button class="update-cart-button">Delete</button>
+                <form class="update-cart-form">
+                    <div class="checkout-flex-container">
+                        {% if item.name == "custom-pizza" %}
+                        <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
+                            Custom Pizza, {{item.size}}
+                            {% if item.ham == "true" %} , Ham {% endif %}
+                            {% if item.chicken == "true" %} , Chicken {% endif %}
+                            {% if item.pepperoni == "true" %} , Pepperoni {% endif %}
+                            {% if item.sweetcorn == "true" %} , Sweetcorn {% endif %}
+                            {% if item.tomato == "true" %} , Tomato {% endif %}
+                            {% if item.peppers == "true" %} , Peppers {% endif %}
+                        </p>
+                            
+                        {% elseif item.name == "potato-wedges" or item.name == "garlic-bread" %}
+                            <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
+                                {% if item.name == "potato-wedges" %}
+                                Potato Wedges
+                                {% elseif item.name == "garlic-bread" %}
+                                Garlic Bread
+                                {% endif %}
+                            </p>                      
+                        {% elseif item.name == "coca-cola" or item.name == "fanta" or item.name == "sprite" %}                        
+                            <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
+                                {% if item.name == "coca-cola" %}
+                                Coca-Cola
+                                {% elseif item.name == "fanta" %}
+                                Fanta
+                                {% elseif item.name == "sprite" %}
+                                Sprite
+                                {% endif %}
+                            </p>
+                        {% elseif item.name == "hawaiian-pizza" or item.name == "newyorker-pizza" or item.name == "housespecial-pizza" %}                        
+                            <p class="item-information-checkout ui-corner-all ui-shadow-inset checkout-item">
+                                {% if item.name == "hawaiian-pizza" %}
+                                Hawaiian
+                                {% elseif item.name == "newyorker-pizza" %}
+                                New Yorker
+                                {% elseif item.name == "housespecial-pizza" %}
+                                House Special
+                                {% endif %}
+                                , {{item.size}}
+                            </p>
+                        {% endif %}   
+                        <!-- ensures no negative value is entered https://stackoverflow.com/questions/7372067/is-there-any-way-to-prevent-input-type-number-getting-negative-values-->
+                        <input type="number" class="item-qty" min="0" value="{{item.qty}}" oninput="validity.valid||(value='');">  
+                        
+                    </div>
+                    <button class="update-cart-button" data-inline="true">Update</button>                   
+                <!-- updates index number by 1 for every item-->
                 <input type="hidden" class="item-index" value={{index}}>                
                 {% set index = index + 1 %} 
+                
             </form>
             {% endfor %} 
-                     
+            <h2 class="red-heading-small">Delivery Address</h2>
+            <form id="checkout-form">                        
+                <input type="text" id="address-line1" name="address-line1" placeholder="Address Line 1" required>
+                <input type="text" id="address-line2" name="address-line2" placeholder="Address Line 2" required>
+                <input type="text" id="address-line3" name="address-line3" placeholder="Address Line 3">
+                <!-- found at http://www.waterfordwebdesign.ie/alphabetical-list-32-counties-ireland/-->
+                <label for="county">County</label>
+                <select class="small-form-field" name="county" id="county" data-mini="true" required>
+                        <option value="" disabled selected>Choose option</option>
+                        <option value="antrim">Antrim</option>
+                        <option value="armagh">Armagh</option>
+                        <option value="carlow">Carlow</option>
+                        <option value="cavan">Cavan</option>
+                        <option value="clare">Clare</option>
+                        <option value="cork">Cork</option>
+                        <option value="derry">Derry</option>
+                        <option value="donegal">Donegal</option>
+                        <option value="down">Down</option>
+                        <option value="dublin">Dublin</option>
+                        <option value="fermanagh">Fermanagh</option>
+                        <option value="galway">Galway</option>
+                        <option value="kerry">Kerry</option>
+                        <option value="kildare">Kildare</option>
+                        <option value="kilkenny">Kilkenny</option>
+                        <option value="laois">Laois</option>
+                        <option value="leitrim">Leitrim</option>
+                        <option value="limerick">Limerick</option>
+                        <option value="longford">Longford</option>
+                        <option value="louth">Louth</option>
+                        <option value="mayo">Mayo</option>
+                        <option value="meath">Meath</option>
+                        <option value="monaghan">Monaghan</option>
+                        <option value="offaly">Offaly</option>
+                        <option value="roscommon">Roscommon</option>
+                        <option value="sligo">Sligo</option>
+                        <option value="tipperary">Tipperary</option>
+                        <option value="tyrone">Tyrone</option>
+                        <option value="waterford">Waterford</option>
+                        <option value="westmeath">Westmeath</option>
+                        <option value="wexford">Wexford</option>
+                        <option value="wicklow">Wicklow</option>
+                </select>
+                <input class="small-form-field" type="text" id="eircode" name="eircode" placeholder="Eircode">
+                <button class="ui-btn ui-corner-all ui-btn-inline" id="checkout-button" data-theme="b">Place Order</button>
+            </form>                     
             {% else %}
             <p>Shopping cart is empty :(</p>
             {% endif %}
@@ -509,6 +559,7 @@
             $.post( "/backend", { type:"updateCart", qty:qty, index:index})
             .done(function(data) {
                 console.log(data);
+                location.reload();
             });
         });
         
@@ -520,6 +571,23 @@
                 alert(data);
             });
         });
+
+        $("#checkout-form").submit(function(event) {
+            event.preventDefault();
+            let addressLine1 = $("#address-line1").val();
+            let addressLine2 = $("#address-line2").val();
+            let addressLine3 = $("#address-line3").val();
+            let county = $('#county').find(":selected").text();
+            let eircode = $("#eircode").val();
+
+            console.log(addressLine1);
+            $.post("/backend", {type:"submitOrder", addressLine1:addressLine1,
+            addressLine2:addressLine2, addressLine3:addressLine3,
+            county:county, eircode:eircode})
+            .done(function(data) {
+                console.log(data);
+            });
+        })
 
         
     

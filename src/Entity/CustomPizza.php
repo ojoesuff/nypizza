@@ -17,39 +17,39 @@ class CustomPizza
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\order", inversedBy="customPizzas")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="customPizzas")
      */
     private $orderId;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $topping1;
+    private $ham;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $topping2;
+    private $chicken;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $topping3;
+    private $pepperoni;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $topping4;
+    private $sweetcorn;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $topping5;
+    private $tomato;
 
     /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="boolean", nullable=true)
      */
-    private $topping6;
+    private $peppers;
 
     /**
      * @ORM\Column(type="float")
@@ -66,86 +66,86 @@ class CustomPizza
         return $this->id;
     }
 
-    public function getOrderId(): ?order
+    public function getOrderId(): ?Order
     {
         return $this->orderId;
     }
 
-    public function setOrderId(?order $orderId): self
+    public function setOrderId(?Order $orderId): self
     {
         $this->orderId = $orderId;
 
         return $this;
     }
 
-    public function getTopping1(): ?string
+    public function getHam(): ?bool
     {
-        return $this->topping1;
+        return $this->ham;
     }
 
-    public function setTopping1(?string $topping1): self
+    public function setHam(?bool $ham): self
     {
-        $this->topping1 = $topping1;
+        $this->ham = $ham;
 
         return $this;
     }
 
-    public function getTopping2(): ?string
+    public function getChicken(): ?bool
     {
-        return $this->topping2;
+        return $this->chicken;
     }
 
-    public function setTopping2(?string $topping2): self
+    public function setChicken(?bool $chicken): self
     {
-        $this->topping2 = $topping2;
+        $this->chicken = $chicken;
 
         return $this;
     }
 
-    public function getTopping3(): ?string
+    public function getPepperoni(): ?bool
     {
-        return $this->topping3;
+        return $this->pepperoni;
     }
 
-    public function setTopping3(?string $topping3): self
+    public function setPepperoni(?bool $pepperoni): self
     {
-        $this->topping3 = $topping3;
+        $this->pepperoni = $pepperoni;
 
         return $this;
     }
 
-    public function getTopping4(): ?string
+    public function getSweetcorn(): ?bool
     {
-        return $this->topping4;
+        return $this->sweetcorn;
     }
 
-    public function setTopping4(?string $topping4): self
+    public function setSweetcorn(?bool $sweetcorn): self
     {
-        $this->topping4 = $topping4;
+        $this->sweetcorn = $sweetcorn;
 
         return $this;
     }
 
-    public function getTopping5(): ?string
+    public function getTomato(): ?bool
     {
-        return $this->topping5;
+        return $this->tomato;
     }
 
-    public function setTopping5(?string $topping5): self
+    public function setTomato(?bool $tomato): self
     {
-        $this->topping5 = $topping5;
+        $this->tomato = $tomato;
 
         return $this;
     }
 
-    public function getTopping6(): ?string
+    public function getPeppers(): ?bool
     {
-        return $this->topping6;
+        return $this->peppers;
     }
 
-    public function setTopping6(?string $topping6): self
+    public function setPeppers(?bool $peppers): self
     {
-        $this->topping6 = $topping6;
+        $this->peppers = $peppers;
 
         return $this;
     }

@@ -35,6 +35,11 @@ class Product
      * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="productId")
      */
     private $orderId;
+    
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $quantity;
 
     public function getId(): ?int
     {
@@ -85,6 +90,20 @@ class Product
     public function setOrderId(?Order $orderId): self
     {
         $this->orderId = $orderId;
+
+        return $this;
+    }
+
+    
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
 
         return $this;
     }
