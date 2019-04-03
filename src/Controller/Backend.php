@@ -424,6 +424,41 @@ class Backend extends AbstractController {
             return new JsonResponse($pendingOrdersArray);
 
         }
+
+        if($type === "deleteOrder") {
+            $orderId = $request->request->get("orderId"); 
+            
+            $entityManager = $this->getDoctrine()->getManager(); 
+            //get order and each product associated with order
+            $products = $entityManager->getRepository(Product::class)->findBy([
+                'orderId' => $orderId
+            ]); 
+            $customPizzas = $entityManager->getRepository(CustomPizza::class)->findBy([
+                'orderId' => $orderId
+            ]);
+            $order = $entityManager->getRepository(FinalOrder::class)->findOneBy([
+                'id' => $orderId
+            ]);
+
+            if ($order) {
+                foreach($products as $product) {
+                    $entityManager->remove($product);
+                }
+                foreach($customPizzas as $customPizza) {
+                    $entityManager->remove($customPizza);
+                }                
+                
+                $entityManager->remove($order);
+                $entityManager->flush();
+                
+                return new Response($orderId." deleted");
+
+            } else {
+                throw $this->createNotFoundException(
+                    'No order found for order id '.$orderId
+                );
+            }
+        }
         return new Response("default");
     }
 

@@ -434,9 +434,8 @@
             </div> 
             <h2 class="green-heading-small">Pending Orders</h2> 
             <div data-role="collapsible" data-theme="a" id="pending-orders">
-                <h4>View</h4>
-                
-                <form id="pending-orders-form" method="post">
+                <h4>View</h4>                
+                <form id="pending-orders-form" onsubmit="getPendingOrdersManager(event);" method="post">
                     <button data-inline="true">Update</button>
                 </form>
                 <div class="pending-order-flex">
@@ -444,24 +443,6 @@
                     <h2 class="green-heading-small width-medium">Address</h2>
                     <h2 class="green-heading-small width-medium">Order</h2>
                 </div>
-                <form class="cancel-order-form">
-                    <div class="pending-order-flex pending-orders">
-                        <p class="width-small">0051655</p>
-                        <p class="width-medium">
-                            Kilgrange, <br>
-                            Grange Park Ave, <br>
-                            Waterford
-                        </p>
-                        <p class="width-medium">
-                            2 x Hawaiian Pizzas, M <br>
-                            2 x New Yorker Pizzas, S <br>
-                            4 x Classic Pizzas, M <br>
-                            5 x Custom PIzzas, ham, chicken, tomato, sweetcorn, peppers, pepperoni <br>
-                            2 x Fanta
-                        </p>
-                        <button data-inline="true" data-mini="true">X</button>
-                    </div>
-                </form>
                 <input type="hidden" id="insertItemBefore">
             </div>                   
         </div>
@@ -733,13 +714,12 @@
            });
         }
         
-        $("#pending-orders-form").submit(function(evert) {
+        function getPendingOrdersManager(event) {
             event.preventDefault();
             $.post("/backend", {type: "getPendingOrders"})
             .done(function(data) {
                 //loop through each item in json data
                 data.forEach(function(order) {
-                    console.log(order);
                     let orderText = "";
 
                     let details = order[0].details;
@@ -753,7 +733,7 @@
                     let address = addressLine1 + "<br>" + addressLine2 + "<br>" + 
                     addressLine3 + "<br>" + county + "<br>" + eircode;
 
-                    for(let i = 1; i < order.length;i++) {
+                    for(let i = 1; i < order.length; i++) {
                         let orderItem = order[i];
                         if(orderItem.order_item) {
                             let singleOrderItem = orderItem.order_item;
@@ -780,7 +760,7 @@
                         } // end if
                     } // end for
 
-                    $("<form class='cancel-order-form' method='post'>" + 
+                    $("<form class='cancel-order-form' onsubmit='deleteOrder(event, " + orderId + ");' method='post'>" + 
                         "<div class='pending-order-flex pending-orders'>" +
                             "<p class='width-small'>"+ orderId +"</p>" +
                             "<p class='width-medium'>" + address + "</p>" +
@@ -789,7 +769,19 @@
                     ).insertBefore("#insertItemBefore");
                 }); //end function
             })
-        });
+        }
+
+        //send order id to backend to delete order
+        function deleteOrder(event, orderId) {
+            event.preventDefault();
+            $.post("/backend", {type: "deleteOrder", orderId:orderId})
+            .done(function(data) {
+                $(".cancel-order-form").remove();
+                getPendingOrdersManager(event);
+            })
+        }
+
+        
             
         
     
