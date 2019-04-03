@@ -57,9 +57,28 @@ class FinalOrderRepository extends ServiceEntityRepository
     //         ->getSingleScalarResult();
     // }
 
-    public function sumOfDailyOrderRevenue() {
+    //returns number for daily total revenue
+    public function sumOfDailyOrderRevenue($date) {
         return $this->createQueryBuilder('fo')
         ->select('SUM(fo.total) as totalRevenue')
+        // found at https://stackoverflow.com/questions/11553183/select-entries-between-dates-in-doctrine-2
+        ->andWhere('fo.dateCreated >= :date_start')
+        ->andWhere('fo.dateCreated <= :date_end')
+        ->setParameter('date_start', $date->format('Y-m-d 00:00:00'))
+        ->setParameter('date_end',   $date->format('Y-m-d 23:59:59'))
+        ->getQuery()
+        ->getSingleScalarResult();
+    }
+
+    //returns number for daily total orders
+    public function totalDailyOrders($date) {
+        return $this->createQueryBuilder('fo')
+        ->select('COUNT(fo.total) as totalOrders')
+        // found at https://stackoverflow.com/questions/11553183/select-entries-between-dates-in-doctrine-2
+        ->andWhere('fo.dateCreated >= :date_start')
+        ->andWhere('fo.dateCreated <= :date_end')
+        ->setParameter('date_start', $date->format('Y-m-d 00:00:00'))
+        ->setParameter('date_end',   $date->format('Y-m-d 23:59:59'))
         ->getQuery()
         ->getSingleScalarResult();
     }

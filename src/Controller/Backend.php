@@ -313,11 +313,18 @@ class Backend extends AbstractController {
         }
 
         if($type === "dailyUpdate") {
-            $totalOrder = $this->getDoctrine()->getRepository(FinalOrder::class)->sumOfDailyOrderRevenue();
+            $date = $request->request->get("date");            
+            $formattedDate = date_create($date);
+            $totalOrders = $this->getDoctrine()->getRepository(FinalOrder::class)->totalDailyOrders($formattedDate);
+            $totalRevenue = $this->getDoctrine()->getRepository(FinalOrder::class)->sumOfDailyOrderRevenue($formattedDate);
+            
+            //ensures 0 is returned for both parameters if no data is found
+            if($totalOrders == 0) {
+                $totalRevenue = 0;
+            }
 
-            return new Response($totalOrder);
+            return new Response("$totalOrders $totalRevenue");
         }
-
         return new Response("default");
     }
 

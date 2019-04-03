@@ -401,7 +401,7 @@
                 <h4>Daily</h4>
                 <form id="daily-form" method="post">
                     <label for="daily-date">Select a Date</label> 
-                    <input type="date" name="daily-date" id="daily-date">
+                    <input type="date" name="daily-date" id="daily-date" required>
                     <label for="daily-total-order">Total Orders</label>
                     <input type="text" name="daily-total-order" readonly id="daily-total-order">
                     <label for="daily-total-revenue">Total Revenue</label>
@@ -689,10 +689,17 @@
         
         $("#daily-form").submit(function(event) {
             event.preventDefault();
-            $.post("/backend", {type:"dailyUpdate"})
+            let date = $("#daily-date").val();
+            $.post("/backend", {type:"dailyUpdate", date:date})
             .done(function(data) {
-                console.log(data);
-            });
+                console.log(data);                
+                let dataArray = data.split(" ");
+                let totalOrders = dataArray[0];
+                let totalRevenue = dataArray[1];
+
+                $("#daily-total-order").val(totalOrders);
+                $("#daily-total-revenue").val(totalRevenue);
+           });
         });
     
     </script>
