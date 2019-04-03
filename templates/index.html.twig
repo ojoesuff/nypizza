@@ -461,9 +461,9 @@
                         </p>
                         <button data-inline="true" data-mini="true">X</button>
                     </div>
-                </form>          
-            </div>
-                   
+                </form>
+                <input type="hidden" id="insertItemBefore">
+            </div>                   
         </div>
         
         {% include 'footer.html.twig' %}
@@ -737,7 +737,57 @@
             event.preventDefault();
             $.post("/backend", {type: "getPendingOrders"})
             .done(function(data) {
-                console.log(data);
+                //loop through each item in json data
+                data.forEach(function(order) {
+                    console.log(order);
+                    let orderText = "";
+
+                    let details = order[0].details;
+                    let orderId = details.id;
+                    let addressLine1 = details.addressLine1;
+                    let addressLine2 = details.addressLine2;
+                    let addressLine3 = details.addressLine3;
+                    let county = details.county;
+                    let eircode = details.eircode;                   
+
+                    let address = addressLine1 + "<br>" + addressLine2 + "<br>" + 
+                    addressLine3 + "<br>" + county + "<br>" + eircode;
+
+                    for(let i = 1; i < order.length;i++) {
+                        let orderItem = order[i];
+                        if(orderItem.order_item) {
+                            let singleOrderItem = orderItem.order_item;
+                            let name = singleOrderItem.name;
+                            let qty = singleOrderItem.qty;
+                            let size = singleOrderItem.size;
+                            //remove hyphens in text https://stackoverflow.com/questions/23771323/remove-dash-between-strings-and-capitalize-the-string-in-javascript
+                            orderText += qty + " x " + name.replace(/-/g, ' ') +  ", " + size;
+                        } else {
+                            let customPizza = orderItem.custom_pizza;
+                            let name = customPizza.name;
+                            let qty = customPizza.qty;
+                            let size = customPizza.size;
+                            let ham = customPizza.ham;
+                            let chicken = customPizza.chicken;
+                            let sweetcorn = customPizza.sweetcorn;
+                            let peppers = customPizza.peppers;
+                            let pepperoni = customPizza.pepperoni;
+                            let tomato = customPizza.tomato;
+                            orderText += qty + " x " + name.replace(/-/g, ' ') +  ", " + 
+                            (ham ? "ham, " : "") + (chicken ? "chicken, " : "") + (sweetcorn ? "sweetcorn, " : "") + 
+                            (peppers ? "peppers, " : "") + (pepperoni ? "pepperoni, " : "") + (tomato ? "tomato, " : "") + 
+                            size;
+                        } // end if
+                    } // end for
+
+                    $("<form class='cancel-order-form' method='post'>" + 
+                        "<div class='pending-order-flex pending-orders'>" +
+                            "<p class='width-small'>"+ orderId +"</p>" +
+                            "<p class='width-medium'>" + address + "</p>" +
+                            "<p class='width-medium'>" + orderText + "</p>" +
+                            "<button class='ui-btn ui-btn-inline ui-corner-all'>X</button></div></form>"
+                    ).insertBefore("#insertItemBefore");
+                }); //end function
             })
         });
             
