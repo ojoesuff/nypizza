@@ -395,11 +395,10 @@
     <div data-role="page" id="manager">
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content width-720">
-            <h1 class="red-heading">Welcome, Your Name</h1> 
             <h2 class="green-heading-small">Revenue Report</h2> 
             <div data-role="collapsible" data-theme="b" id="daily-report">
                 <h4>Daily</h4>
-                <form id="daily-form" method="post">
+                <form id="daily-form" method="post" onsubmit="getManagerReport(event, 'daily');">
                     <label for="daily-date">Select a Date</label> 
                     <input type="date" name="daily-date" id="daily-date" required>
                     <label for="daily-total-order">Total Orders</label>
@@ -411,7 +410,7 @@
             </div>
             <div data-role="collapsible" data-theme="b" id="weekly-report">
                 <h4>Weekly</h4>
-                <form id="weekly-form" method="post">
+                <form id="weekly-form" method="post" onsubmit="getManagerReport(event, 'weekly');">
                     <label for="weekly-date">Select a Week</label> 
                     <input type="week" name="weekly-date" id="weekly-date">
                     <label for="weekly-total-order">Total Orders</label>
@@ -423,7 +422,7 @@
             </div>
             <div data-role="collapsible" data-theme="b" id="monthly-report">
                 <h4>Monthly</h4>
-                <form id="monthly-form" method="post">
+                <form id="monthly-form" method="post" onsubmit="getManagerReport(event, 'monthly');">
                     <label for="monthly-date">Select a Month</label> 
                     <input type="month" name="monthly-date" id="monthly-date">
                     <label for="monthly-total-order">Total Orders</label>
@@ -432,8 +431,39 @@
                     <input type="text" readonly id="monthly-total-revenue">                                
                     <button data-inline="true" id="monthly-update">Update</button>
                 </form>                
+            </div> 
+            <h2 class="green-heading-small">Pending Orders</h2> 
+            <div data-role="collapsible" data-theme="a" id="pending-orders">
+                <h4>View</h4>
+                
+                <form id="pending-orders-form" method="post">
+                    <button data-inline="true">Update</button>
+                </form>
+                <div class="pending-order-flex">
+                    <h2 class="green-heading-small width-small">Order ID</h2>
+                    <h2 class="green-heading-small width-medium">Address</h2>
+                    <h2 class="green-heading-small width-medium">Order</h2>
+                </div>
+                <form class="cancel-order-form">
+                    <div class="pending-order-flex pending-orders">
+                        <p class="width-small">0051655</p>
+                        <p class="width-medium">
+                            Kilgrange, <br>
+                            Grange Park Ave, <br>
+                            Waterford
+                        </p>
+                        <p class="width-medium">
+                            2 x Hawaiian Pizzas, M <br>
+                            2 x New Yorker Pizzas, S <br>
+                            4 x Classic Pizzas, M <br>
+                            5 x Custom PIzzas, ham, chicken, tomato, sweetcorn, peppers, pepperoni <br>
+                            2 x Fanta
+                        </p>
+                        <button data-inline="true" data-mini="true">X</button>
+                    </div>
+                </form>          
             </div>
-            <h2 class="green-heading">Pending Orders</h2>         
+                   
         </div>
         
         {% include 'footer.html.twig' %}
@@ -686,21 +716,32 @@
                 location.reload();
             });
         }) 
-        
-        $("#daily-form").submit(function(event) {
+
+        //gets revenue information for each report by the dateType eg 'daily'
+        function getManagerReport(event, dateType) {
             event.preventDefault();
-            let date = $("#daily-date").val();
-            $.post("/backend", {type:"dailyUpdate", date:date})
+            let date = $("#" + dateType + "-date").val();
+            $.post("/backend", {type: dateType + "Update", date:date})
             .done(function(data) {
                 console.log(data);                
                 let dataArray = data.split(" ");
                 let totalOrders = dataArray[0];
                 let totalRevenue = dataArray[1];
 
-                $("#daily-total-order").val(totalOrders);
-                $("#daily-total-revenue").val(totalRevenue);
+                $("#" + dateType + "-total-order").val(totalOrders);
+                $("#" + dateType + "-total-revenue").val(totalRevenue);
            });
+        }
+        
+        $("#pending-orders-form").submit(function(evert) {
+            event.preventDefault();
+            $.post("/backend", {type: "getPendingOrders"})
+            .done(function(data) {
+                console.log(data);
+            })
         });
+            
+        
     
     </script>
 </html>

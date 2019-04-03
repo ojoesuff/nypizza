@@ -10,6 +10,7 @@ use App\Entity\Product;
 use App\Entity\CustomPizza;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response; 
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\HttpFoundation\Session\SessionInterface;  
 
@@ -312,6 +313,7 @@ class Backend extends AbstractController {
           
         }
 
+        //get daily report by selected date
         if($type === "dailyUpdate") {
             $date = $request->request->get("date");            
             $formattedDate = date_create($date);
@@ -324,6 +326,70 @@ class Backend extends AbstractController {
             }
 
             return new Response("$totalOrders $totalRevenue");
+        }
+        //get weekly report by selected week
+        if($type === "weeklyUpdate") {
+            $date = $request->request->get("date"); 
+            $formattedDate = date_create($date);            
+            $totalOrders = $this->getDoctrine()->getRepository(FinalOrder::class)->totalWeeklyOrders($formattedDate);
+            $totalRevenue = $this->getDoctrine()->getRepository(FinalOrder::class)->sumOfWeeklyOrderRevenue($formattedDate);
+            
+            //ensures 0 is returned for both parameters if no data is found
+            if($totalOrders == 0) {
+                $totalRevenue = 0;
+            }
+
+            return new Response("$totalOrders $totalRevenue");
+        }
+
+        //get monthly report by selected month
+        if($type === "monthlyUpdate") {
+            $date = $request->request->get("date"); 
+            $formattedDate = date_create($date); 
+            $totalOrders = $this->getDoctrine()->getRepository(FinalOrder::class)->totalMonthlyOrders($formattedDate);
+            $totalRevenue = $this->getDoctrine()->getRepository(FinalOrder::class)->sumOfMonthlyOrderRevenue($formattedDate);
+            
+            //ensures 0 is returned for both parameters if no data is found
+            if($totalOrders == 0) {
+                $totalRevenue = 0;
+            }
+
+            return new Response("$totalOrders $totalRevenue");
+        }
+
+        if($type === "getPendingOrders") {
+
+            $pendingOrders = $this->getDoctrine()->getRepository(FinalOrder::class)->findBy([
+                'orderStatus' => "Pending"
+            ]);
+
+            $pendingOrdersArray = array();
+
+            foreach ($pendingOrders as $order) {
+                
+
+                $orderId = $order->getId();
+                $addressLine1 = $order->getAddressLine1();
+                $addressLine2 = $order->getAddressLine2();
+                $addressLine3 = $order->getAddressLine3();
+
+                $orderArray = array("id" => $orderId, "addressLine1" => $addressLine1, 
+                "addressLine2" => $addressLine2, "addressLine3" => $addressLine3);
+
+                $customPizzas = $order->getCustomPizzas(); 
+                foreach($customPizzas as $customPizza) {
+                    $qty = $customPizza->getQuantity();
+                    $ham = $customPizza->getHam();
+
+                    $customPizzaArray = array("qty" => $qty, "ham" => $ham);
+                    array_push($orderArray, $customPizzaArray);
+                }
+
+                array_push($pendingOrdersArray, $orderArray);
+            }
+            
+            return new JsonResponse($pendingOrdersArray);
+
         }
         return new Response("default");
     }

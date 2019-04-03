@@ -163,7 +163,7 @@ class FinalOrder
     }
 
     /**
-     * @return Collection|product[]
+     * @return Collection|Product[]
      */
     public function getProductId(): Collection
     {
