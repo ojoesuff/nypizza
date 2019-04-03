@@ -459,6 +459,25 @@ class Backend extends AbstractController {
                 );
             }
         }
+
+        if($type ="completeOrder") {
+            $orderId = $request->request->get("orderId");
+            $entityManager = $this->getDoctrine()->getManager();  
+            $completeOrder = $entityManager->getRepository(FinalOrder::class)->findOneBy([
+                'id' => $orderId
+            ]);
+            
+            if($completeOrder) {
+                $completeOrder->setOrderStatus("Complete");
+                $entityManager->persist($completeOrder);
+                $entityManager->flush();
+
+                return new Response($orderId." completed");
+            }            
+
+            
+            
+        }
         return new Response("default");
     }
 

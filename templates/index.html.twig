@@ -387,11 +387,6 @@
         {% include 'footer.html.twig' %}
     </div><!-- /checkout-->
 
-    <div data-role="page" id="driver">
-        {% include 'header.html.twig' %}
-        {% include 'footer.html.twig' %}
-    </div><!-- /driver-->  
-
     <div data-role="page" id="manager">
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content width-720">
@@ -435,7 +430,7 @@
             <h2 class="green-heading-small">Pending Orders</h2> 
             <div data-role="collapsible" data-theme="a" id="pending-orders">
                 <h4>View</h4>                
-                <form id="pending-orders-form" onsubmit="getPendingOrdersManager(event);" method="post">
+                <form id="manager-pending-orders-form" onsubmit="getPendingOrdersManager(event);" method="post">
                     <button data-inline="true">Update</button>
                 </form>
                 <div class="pending-order-flex">
@@ -443,12 +438,33 @@
                     <h2 class="green-heading-small width-medium">Address</h2>
                     <h2 class="green-heading-small width-medium">Order</h2>
                 </div>
-                <input type="hidden" id="insertItemBefore">
+                <div id="insertItemBefore"></div>
             </div>                   
         </div>
         
         {% include 'footer.html.twig' %}
     </div><!-- /manager-->
+
+    <div data-role="page" id="driver">
+        {% include 'header.html.twig' %}
+        <div data-role="main" class="ui-content width-720">            
+            <h2 class="green-heading-small">Pending Orders</h2> 
+            <div data-role="collapsible" data-theme="a" class="pending-orders">
+                <h4>View</h4>                
+                <form id="driver-pending-orders-form" onsubmit="getPendingOrdersDriver(event);" method="post">
+                    <button data-inline="true">Update</button>
+                </form>
+                <div class="pending-order-flex">
+                    <h2 class="green-heading-small width-small">Order ID</h2>
+                    <h2 class="green-heading-small width-medium">Address</h2>
+                    <h2 class="green-heading-small width-medium">Order</h2>
+                </div>
+                <input type="hidden" id="driverInsertItemBefore">
+            </div>                   
+        </div>
+        
+        {% include 'footer.html.twig' %}
+    </div><!-- /driver-->
 
     <div data-role="page" id="customer">
         {% include 'header.html.twig' %}
@@ -713,15 +729,20 @@
                 $("#" + dateType + "-total-revenue").val(totalRevenue);
            });
         }
-        
-        function getPendingOrdersManager(event) {
-            event.preventDefault();
+
+        //get pending orders for manager or driver
+        function getPendingOrders(submitFunction, buttonContent, insertBefore) {
+            //if update was pressed more than once, dont duplicate data
+            $(".change-order-form").remove();
+            let htmlString = "";
             $.post("/backend", {type: "getPendingOrders"})
             .done(function(data) {
                 //loop through each item in json data
+                if(data.length === 0) {
+                    $("<p>No orders pending</p>").insertBefore("#" + insertBefore);
+                } else {
                 data.forEach(function(order) {
                     let orderText = "";
-
                     let details = order[0].details;
                     let orderId = details.id;
                     let addressLine1 = details.addressLine1;
@@ -760,15 +781,28 @@
                         } // end if
                     } // end for
 
-                    $("<form class='cancel-order-form' onsubmit='deleteOrder(event, " + orderId + ");' method='post'>" + 
+                    $("<hr><form class='change-order-form' onsubmit='" + submitFunction + "(event, " + orderId + ");' method='post'>" + 
                         "<div class='pending-order-flex pending-orders'>" +
                             "<p class='width-small'>"+ orderId +"</p>" +
                             "<p class='width-medium'>" + address + "</p>" +
                             "<p class='width-medium'>" + orderText + "</p>" +
-                            "<button class='ui-btn ui-btn-inline ui-corner-all'>X</button></div></form>"
-                    ).insertBefore("#insertItemBefore");
-                }); //end function
-            })
+                            "<button class='ui-btn ui-btn-inline ui-corner-all'>" + buttonContent + "</button></div></form><hr>")
+                            .insertBefore("#" + insertBefore);
+                    }); //end foreach
+                } //end if/else
+            }); //end post/done
+        } //end getPendingOrders
+
+        function getPendingOrdersManager(event) {
+            event.preventDefault();
+            //call function with submit function name, button content and element to insert before
+            getPendingOrders("deleteOrder", "X", "insertItemBefore");
+        }
+
+        function getPendingOrdersDriver(event) {
+            event.preventDefault();
+            //call function with submit function name, button content and element to insert before
+            getPendingOrders("completeOrder", "&#x2714;", "driverInsertItemBefore");
         }
 
         //send order id to backend to delete order
@@ -776,9 +810,19 @@
             event.preventDefault();
             $.post("/backend", {type: "deleteOrder", orderId:orderId})
             .done(function(data) {
-                $(".cancel-order-form").remove();
+                $(".change-order-form").remove();
                 getPendingOrdersManager(event);
-            })
+            });
+        }
+
+        function completeOrder(event, orderId) {
+            event.preventDefault();
+            $.post("/backend", {type: "completeOrder", orderId:orderId})
+            .done(function(data) {
+                $(".change-order-form").remove();
+                getPendingOrdersDriver(event);
+                console.log(data);
+            });
         }
 
         
