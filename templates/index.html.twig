@@ -335,6 +335,9 @@
                 <h2 class="green-heading-small checkout-quantity">&euro;{{ app.session.get("cartTotal") }}</h2>
             </div>
             <hr>
+            {% if not app.session.get('loggedIn') %} 
+            <h4><a href="#login">Login</a> or <a href="#register">register</a> to complete your order</h4>
+            {% else %}
             <form id="checkout-form" method="post">                        
                 <input type="text" id="address-line1" name="address-line1" placeholder="Address Line 1" required>
                 <input type="text" id="address-line2" name="address-line2" placeholder="Address Line 2" required>
@@ -378,7 +381,10 @@
                 </select>
                 <input class="small-form-field" type="text" id="eircode" name="eircode" placeholder="Eircode">
                 <button class="ui-btn ui-corner-all ui-btn-inline" id="checkout-button" data-theme="b">Place Order</button>
-            </form>                     
+            </form>                 
+            {% endif %}
+            
+                                
             {% else %}
             <p>Shopping cart is empty :(</p>
             {% endif %}
@@ -466,10 +472,36 @@
         {% include 'footer.html.twig' %}
     </div><!-- /driver-->
 
-    <div data-role="page" id="customer">
+    <div data-role="page" id="orders">
         {% include 'header.html.twig' %}
+        <div class="width-720">
+            <h2 class="green-heading-small">Orders</h2>
+            
+            <div data-role="collapsible" data-theme="a" class="pending-orders">
+                <h4>View</h4>     
+                <form id="customer-pending-orders-form" onsubmit="getCustomerOrders(event);" method="post">
+                    <button data-inline="true">Update</button>
+                </form> 
+                <h3 class="green-heading-tiny">Pending Orders</h3>            
+                <h3 class="width-quarter green-heading-tiny">Date</h3>
+                <h3 class="width-quarter green-heading-tiny">Address</h3>
+                <h3 class="width-quarter green-heading-tiny">Order</h3>
+                <h3 class="width-quarter green-heading-tiny">Status</h3>
+                <hr> 
+                <input type="hidden" id="pendingOrdersInsertItemBefore">
+                <h3 class="green-heading-tiny">Order History</h3>            
+                <h3 class="width-quarter green-heading-tiny">Date</h3>
+                <h3 class="width-quarter green-heading-tiny">Address</h3>
+                <h3 class="width-quarter green-heading-tiny">Order</h3>
+                <h3 class="width-quarter green-heading-tiny">Status</h3>
+                <hr>
+                <input type="hidden" id="completeOrdersInsertItemBefore">
+            </div>
+            
+        </div>
+        
         {% include 'footer.html.twig' %}
-    </div><!-- /customer-->
+    </div><!-- /orders-->
 
     <div data-role="page" id="checkout-complete">
         {% include 'header.html.twig' %}
@@ -510,23 +542,7 @@
 
             $.post( "/backend", { type:"login", email:email, password:password})
             .done(function(data) {
-                console.log(data);
-                switch(data) {
-                    case "customer":
-                        window.location = "/index#customer";
-                        break;
-                    case "driver":
-                        window.location = "/index#driver";
-                        break;  
-                    case "manager":
-                        window.location = "/index#manager";
-                        break;  
-                    case "error":
-                        alert("Username or password incorrect");
-                        break; 
-                    default:
-                        window.location = "/index#login";
-                }
+                window.location ="/index";
             });
         })
 
@@ -588,7 +604,6 @@
             $.post( "/backend", { type:"addItemToSession", name:name, size:size,
             qty:qty, total:total})
             .done(function(data) {
-                console.log(data);
             });
         }
 
@@ -649,7 +664,6 @@
             ham:ham, chicken:chicken, pepperoni:pepperoni, sweetcorn:sweetcorn,
             tomato:tomato, peppers:peppers, qty:qty, total:total, size:size})
             .done(function(data) {
-                console.log(data);
             });
         }
 
@@ -678,11 +692,8 @@
             event.preventDefault();
             let qty = parseInt($(this).find(".item-qty").val());
             let index = parseInt($(this).find(".item-index").val());
-            console.log(qty);
-            console.log(index);
             $.post( "/backend", { type:"updateCart", qty:qty, index:index})
             .done(function(data) {
-                console.log(data);
                 location.reload();
             });
         });
@@ -692,7 +703,6 @@
             $.post("/backend", {type:"logout"})
             .done(function(data) {
                 window.location = "/index";
-                alert(data);
             });
         });
 
@@ -703,8 +713,6 @@
             let addressLine3 = $("#address-line3").val();
             let county = $('#county').find(":selected").text();
             let eircode = $("#eircode").val();
-
-            console.log(addressLine1);
             $.post("/backend", {type:"submitOrder", addressLine1:addressLine1,
             addressLine2:addressLine2, addressLine3:addressLine3,
             county:county, eircode:eircode})
@@ -719,8 +727,7 @@
             event.preventDefault();
             let date = $("#" + dateType + "-date").val();
             $.post("/backend", {type: dateType + "Update", date:date})
-            .done(function(data) {
-                console.log(data);                
+            .done(function(data) {               
                 let dataArray = data.split(" ");
                 let totalOrders = dataArray[0];
                 let totalRevenue = dataArray[1];
@@ -781,12 +788,12 @@
                         } // end if
                     } // end for
 
-                    $("<hr><form class='change-order-form' onsubmit='" + submitFunction + "(event, " + orderId + ");' method='post'>" + 
+                    $("<form class='change-order-form' onsubmit='" + submitFunction + "(event, " + orderId + ");' method='post'>" + 
                         "<div class='pending-order-flex pending-orders'>" +
                             "<p class='width-small'>"+ orderId +"</p>" +
                             "<p class='width-medium'>" + address + "</p>" +
                             "<p class='width-medium'>" + orderText + "</p>" +
-                            "<button class='ui-btn ui-btn-inline ui-corner-all'>" + buttonContent + "</button></div></form><hr>")
+                            "<button class='ui-btn ui-btn-inline ui-corner-all'>" + buttonContent + "</button></div></form>")
                             .insertBefore("#" + insertBefore);
                     }); //end foreach
                 } //end if/else
@@ -821,8 +828,67 @@
             .done(function(data) {
                 $(".change-order-form").remove();
                 getPendingOrdersDriver(event);
-                console.log(data);
             });
+        }
+
+        function getCustomerOrders(event) {
+            event.preventDefault();
+            //if update was pressed more than once, dont duplicate data
+            $(".pending-order-flex").remove();
+            let htmlString = "";
+            $.post("/backend", {type: "getCustomerOrders"})
+            .done(function(data) {
+                //loop through each item in json data
+                data.forEach(function(order) {
+                    let orderText = "";
+                    let details = order[0].details;
+                    let orderId = details.id;
+                    let addressLine1 = details.addressLine1;
+                    let addressLine2 = details.addressLine2;
+                    let addressLine3 = details.addressLine3;
+                    let county = details.county;
+                    let eircode = details.eircode;   
+                    let status = details.status;
+                    let orderDate = details.orderDate;                
+
+                    let address = addressLine1 + "<br>" + addressLine2 + "<br>" + 
+                    addressLine3 + "<br>" + county + "<br>" + eircode;
+
+                    for(let i = 1; i < order.length; i++) {
+                        let orderItem = order[i];
+                        if(orderItem.order_item) {
+                            let singleOrderItem = orderItem.order_item;
+                            let name = singleOrderItem.name;
+                            let qty = singleOrderItem.qty;
+                            let size = singleOrderItem.size;
+                            //remove hyphens in text https://stackoverflow.com/questions/23771323/remove-dash-between-strings-and-capitalize-the-string-in-javascript
+                            orderText += qty + " x " + name.replace(/-/g, ' ') +  ", " + size;
+                        } else {
+                            let customPizza = orderItem.custom_pizza;
+                            let name = customPizza.name;
+                            let qty = customPizza.qty;
+                            let size = customPizza.size;
+                            let ham = customPizza.ham;
+                            let chicken = customPizza.chicken;
+                            let sweetcorn = customPizza.sweetcorn;
+                            let peppers = customPizza.peppers;
+                            let pepperoni = customPizza.pepperoni;
+                            let tomato = customPizza.tomato;
+                            orderText += qty + " x " + name.replace(/-/g, ' ') +  ", " + 
+                            (ham ? "ham, " : "") + (chicken ? "chicken, " : "") + (sweetcorn ? "sweetcorn, " : "") + 
+                            (peppers ? "peppers, " : "") + (pepperoni ? "pepperoni, " : "") + (tomato ? "tomato, " : "") + 
+                            size;
+                        } // end if
+                    } // end for
+
+                    $("<div class='pending-order-flex pending-orders'>" +
+                    "<p class='width-quarter'>"+ orderDate +"</p>" +
+                    "<p class='width-quarter'>" + address + "</p>" +
+                    "<p class='width-quarter'>" + orderText + "</p>" + 
+                    "<p class='width-quarter'>" + status + "</p></div>")
+                    .insertBefore("#" + (status == "Pending" ? "pendingOrdersInsertItemBefore" : "completeOrdersInsertItemBefore"));
+                    }); //end foreach
+            }); //end post/done
         }
 
         

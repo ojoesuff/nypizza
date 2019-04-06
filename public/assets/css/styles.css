@@ -57,6 +57,12 @@ red = #C13E31
     margin: 0 auto;
 }
 
+.width-quarter {
+    width: 22.5%;
+    margin: 1%;
+    display: inline-block;
+}
+
 .width-half {
     width: 50%;
 }
@@ -153,11 +159,14 @@ red = #C13E31
 .pending-orders {
     background: #E1D7BC;
     border-radius: 0.3vw;
+    margin: 0.2vw;
 }
 
 .change-order-form {
     margin-top: 0.5vw;
 }
+
+
 
 
 

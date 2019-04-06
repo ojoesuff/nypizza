@@ -71,6 +71,7 @@ class Backend extends AbstractController {
                     $this->session->set('id', $repo->getId());
                     $this->session->set('loggedIn', true);
                     $this->session->set('name', $repo->getFirstName());
+                    $this->session->set('accountType', $repo->getAccountType());
                     $accountType = $repo->getAccountType();
                     return new Response($accountType);
                 } else {
@@ -424,6 +425,78 @@ class Backend extends AbstractController {
             return new JsonResponse($pendingOrdersArray);
 
         }
+        if($type === "getCustomerOrders") {
+
+            $customerId = $this->session->get("id");
+
+            $orders = $this->getDoctrine()->getRepository(FinalOrder::class)->findBy([
+                'customerId'=> $customerId
+            ]);
+
+            $ordersArray = array();            
+
+            foreach ($orders as $order) { 
+                
+                $orderArray = array();
+
+                $addressLine1 = $order->getAddressLine1();
+                $addressLine2 = $order->getAddressLine2();
+                $addressLine3 = $order->getAddressLine3();
+                $county = $order->getCounty();
+                $eircode = $order->getEircode();
+                $date = $order->getDateCreated();
+                $orderDate = $date->format("d M Y");
+                $status = $order->getOrderStatus();
+
+                $orderDetails = array("orderDate" => $orderDate, "addressLine1" => $addressLine1, 
+                "addressLine2" => $addressLine2, "addressLine3" => $addressLine3,
+                "county" => $county, "eircode" => $eircode, "status" => $status);
+
+                array_push($orderArray, ["details" => $orderDetails]);
+
+                //get all items associated with order
+                $orderItems = $order->getProductId();
+                foreach($orderItems as $item) {
+                    //get parameters to add to front end
+                    $qty = $item->getQuantity();
+                    $size = $item->getSize();
+                    $name = $item->getName();
+
+                    //add parameters to array
+                    $itemArray = array("name" => $name, "qty" => $qty, "size" => $size);
+                    //add to items
+                    array_push($orderArray, ["order_item" => $itemArray]);
+                }
+
+
+                //get all custom pizzas associated with order
+                $customPizzas = $order->getCustomPizzas();                 
+                foreach($customPizzas as $customPizza) {
+                    //get parameters to add to front end
+                    $size = $customPizza->getSize();
+                    $qty = $customPizza->getQuantity();
+                    $ham = $customPizza->getHam();
+                    $chicken = $customPizza->getChicken();
+                    $pepperoni = $customPizza->getPepperoni();
+                    $sweetcorn = $customPizza->getSweetcorn();
+                    $tomato = $customPizza->getTomato();
+                    $peppers = $customPizza->getPeppers();
+
+                    $customPizzaArray = array("name" => "custom-pizza", "qty" => $qty, "size" => $size, "ham" => $ham,
+                    "chicken" => $chicken, "pepperoni" => $pepperoni, "sweetcorn" => $sweetcorn,
+                    "tomato" => $tomato, "peppers" => $peppers );
+
+                    array_push($orderArray, ["custom_pizza" => $customPizzaArray]);
+                }
+
+                array_push($ordersArray, $orderArray);
+         
+            }            
+            
+            return new JsonResponse($ordersArray);
+
+        }
+
 
         if($type === "deleteOrder") {
             $orderId = $request->request->get("orderId"); 

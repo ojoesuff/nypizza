@@ -1,5 +1,4 @@
 <div data-role="header" id"header">
-    {{ dump(app.session.all) }}
     <script>
         //converts api temp data to celsius from kelvin
         function kelvinToCelsius(kelvin) {
@@ -32,12 +31,31 @@
         <a href="#home" data-transition="fade"><img src="{{asset('assets/images/logo-green.svg')}}" id="logo" alt="NY Pizza Logo"></a>
         <div data-role="navbar" id="main-nav">
             <ul>
+                {% if app.session.get('accountType')  == "customer" or app.session.get('loggedIn')  == false %}
                 <li><a href="#menu" data-transition="fade">Menu</a></li>
-                <!--<li><a href="#register" data-transition="fade">Register</a></li> -->
+                {% endif %}
+                {% if app.session.get('loggedIn')  == false %}
+                <li><a href="#register" data-transition="fade">Register</a></li>
                 <li><a href="#login" data-transition="fade">Login</a></li>
-                <li><a href="#driver" data-transition="fade">Driver</a></li>
-                <li><a href="#manager" data-transition="fade" id="logout">Manager</a></li>
+                {% endif %}                
+                {% if app.session.get('accountType')  == "customer" %}
+                <li><a href="#orders" data-transition="fade">Orders</a></li>
+                {% endif %}                   
+                {% if app.session.get('accountType')  == "manager" %}
+                <li><a href="#manager" data-transition="fade">Report</a></li>
+                {% endif %}   
+                {% if app.session.get('loggedIn')  == true %}
+                <li><a href="#logout" data-transition="fade">Logout</a></li>
+                {% endif %}
+                {% if app.session.get('accountType')  == "customer" or app.session.get('loggedIn')  == false %}
                 <li><a href="#checkout" data-transition="fade">Checkout</a></li>
+                {% endif %}   
+                {% if app.session.get('accountType')  == "driver" %}
+                <li><a href="#driver" data-transition="fade">Orders</a></li>
+                {% endif %}       
+                
+                
+                
             </ul>
         </div><!-- /navbar -->
     </div><!-- /navbar container -->
