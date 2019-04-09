@@ -16,10 +16,10 @@
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content">
             <div class="width-960">
-                <h1 class="main-ad" id="main-ad-new">NEW</h1>
-                <h1 class="main-ad" id="main-ad-store">STORE</h1>
-                <h1 class="main-ad" id="main-ad-now">NOW</h1>
-                <h1 class="main-ad" id="main-ad-open">OPEN</h1>
+                <h1 class="main-ad green-heading" id="main-ad-new">NEW</h1>
+                <h1 class="main-ad green-heading" id="main-ad-store">STORE</h1>
+                <h1 class="main-ad red-heading" id="main-ad-now">NOW</h1>
+                <h1 class="main-ad red-heading" id="main-ad-open">OPEN</h1>
             </div>            
         </div> 
         <div data-role="main" class="ui-content">
@@ -82,7 +82,7 @@
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content width-960">
             <h1 class="red-heading">Menu</h1>
-            <h2 class="green-heading-small">Pizzas</h2>
+            <h2 class="green-heading">Pizzas</h2>
             <div class="flex-container">                
                 <!-- hawaiian pizza -->
                 <div class="menu-item-container ui-block-a">
@@ -182,7 +182,7 @@
                     </form>
                 </div> <!-- /custom pizza -->
             </div> <!-- /flex container --> 
-            <h2 class="green-heading-small">Sides</h2>
+            <h2 class="green-heading">Sides</h2>
             <div class="flex-container width-half">                
                 <!-- potato wedges -->
                 <div class="menu-item-container">
@@ -201,7 +201,7 @@
                 <!-- garlic bread -->
                 <div class="menu-item-container">
                     <h3 class="menu-item-heading">Garlic Bread</h3>
-                    <img class="pizza-img" src="{{asset('assets/images/garlic-bread.jpeg')}}" alt="Garlic Bread Image">
+                    <img class="pizza-img" src="{{asset('assets/images/garlic-bread.jpg')}}" alt="Garlic Bread Image">
                     <h3 class="menu-item-heading">&euro;5</h3>
                     <form id="garlic-bread-form" method="post">                        
                         <div class="quantity-flex-container">
@@ -213,7 +213,7 @@
                     </form>
                 </div> <!-- /garlic bread -->              
             </div> <!-- /flex container -->    
-            <h2 class="green-heading-small">Drinks - 330ml</h2>
+            <h2 class="green-heading">Drinks - 330ml</h2>
             <div class="flex-container width-3-4">                
                 <!-- coca-cola -->
                 <div class="menu-item-container">
@@ -232,7 +232,7 @@
                 <!-- fanta -->
                 <div class="menu-item-container">
                     <h3 class="menu-item-heading">Fanta</h3>
-                    <img class="pizza-img" src="{{asset('assets/images/fanta.png')}}" alt="Fanta Image">
+                    <img class="pizza-img" src="{{asset('assets/images/fanta.jpg')}}" alt="Fanta Image">
                     <h3 class="menu-item-heading">&euro;1</h3>
                     <form id="fanta-form" method="post">                        
                         <div class="quantity-flex-container">
@@ -268,10 +268,10 @@
         <h1 class="green-heading">Checkout</h1>
         {% if app.session.get('cart') is not null %}
             
-            <h2 class="red-heading-small">Order</h2>
+            <h2 class="red-heading">Order</h2>
             <div class="checkout-flex-container">
-                <h3 class="green-heading-tiny checkout-item">Item</h3>
-                <h3 class="green-heading-tiny checkout-quantity">Quantity</h3>
+                <h3 class="green-headingtiny checkout-item">Item</h3>
+                <h3 class="green-headingtiny checkout-quantity">Quantity</h3>
             </div>
             <hr>
             {% set index = 0 %}
@@ -331,8 +331,8 @@
             {% endfor %} 
             <hr>
             <div class="checkout-flex-container">
-                <h2 class="green-heading-small checkout-item">Total</h2>
-                <h2 class="green-heading-small checkout-quantity">&euro;{{ app.session.get("cartTotal") }}</h2>
+                <h2 class="green-heading checkout-item">Total</h2>
+                <h2 class="green-heading checkout-quantity">&euro;{{ app.session.get("cartTotal") }}</h2>
             </div>
             <hr>
             {% if not app.session.get('loggedIn') %} 
@@ -396,7 +396,7 @@
     <div data-role="page" id="manager">
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content width-720">
-            <h2 class="green-heading-small">Revenue Report</h2> 
+            <h2 class="green-heading">Revenue Report</h2> 
             <div data-role="collapsible" data-theme="b" id="daily-report">
                 <h4>Daily</h4>
                 <form id="daily-form" method="post" onsubmit="getManagerReport(event, 'daily');">
@@ -433,16 +433,16 @@
                     <button data-inline="true" id="monthly-update">Update</button>
                 </form>                
             </div> 
-            <h2 class="green-heading-small">Pending Orders</h2> 
+            <h2 class="green-heading">Pending Orders</h2> 
             <div data-role="collapsible" data-theme="a" id="pending-orders">
                 <h4>View</h4>                
                 <form id="manager-pending-orders-form" onsubmit="getPendingOrdersManager(event);" method="post">
                     <button data-inline="true">Update</button>
                 </form>
                 <div class="pending-order-flex">
-                    <h2 class="green-heading-small width-small">Order ID</h2>
-                    <h2 class="green-heading-small width-medium">Address</h2>
-                    <h2 class="green-heading-small width-medium">Order</h2>
+                    <h2 class="green-heading width-small">Order ID</h2>
+                    <h2 class="green-heading width-medium">Address</h2>
+                    <h2 class="green-heading width-medium">Order</h2>
                 </div>
                 <div id="insertItemBefore"></div>
             </div>                   
@@ -454,16 +454,16 @@
     <div data-role="page" id="driver">
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content width-720">            
-            <h2 class="green-heading-small">Pending Orders</h2> 
+            <h2 class="green-heading">Pending Orders</h2> 
             <div data-role="collapsible" data-theme="a" class="pending-orders">
                 <h4>View</h4>                
                 <form id="driver-pending-orders-form" onsubmit="getPendingOrdersDriver(event);" method="post">
                     <button data-inline="true">Update</button>
                 </form>
                 <div class="pending-order-flex">
-                    <h2 class="green-heading-small width-small">Order ID</h2>
-                    <h2 class="green-heading-small width-medium">Address</h2>
-                    <h2 class="green-heading-small width-medium">Order</h2>
+                    <h2 class="green-heading width-small">Order ID</h2>
+                    <h2 class="green-heading width-medium">Address</h2>
+                    <h2 class="green-heading width-medium">Order</h2>
                 </div>
                 <input type="hidden" id="driverInsertItemBefore">
             </div>                   
@@ -475,25 +475,25 @@
     <div data-role="page" id="orders">
         {% include 'header.html.twig' %}
         <div class="width-720">
-            <h2 class="green-heading-small">Orders</h2>
+            <h2 class="green-heading">Orders</h2>
             
             <div data-role="collapsible" data-theme="a" class="pending-orders">
                 <h4>View</h4>     
                 <form id="customer-pending-orders-form" onsubmit="getCustomerOrders(event);" method="post">
                     <button data-inline="true">Update</button>
                 </form> 
-                <h3 class="green-heading-tiny">Pending Orders</h3>            
-                <h3 class="width-quarter green-heading-tiny">Date</h3>
-                <h3 class="width-quarter green-heading-tiny">Address</h3>
-                <h3 class="width-quarter green-heading-tiny">Order</h3>
-                <h3 class="width-quarter green-heading-tiny">Status</h3>
+                <h3 class="green-headingtiny">Pending Orders</h3>            
+                <h3 class="width-quarter green-headingtiny">Date</h3>
+                <h3 class="width-quarter green-headingtiny">Address</h3>
+                <h3 class="width-quarter green-headingtiny">Order</h3>
+                <h3 class="width-quarter green-headingtiny">Status</h3>
                 <hr> 
                 <input type="hidden" id="pendingOrdersInsertItemBefore">
-                <h3 class="green-heading-tiny">Order History</h3>            
-                <h3 class="width-quarter green-heading-tiny">Date</h3>
-                <h3 class="width-quarter green-heading-tiny">Address</h3>
-                <h3 class="width-quarter green-heading-tiny">Order</h3>
-                <h3 class="width-quarter green-heading-tiny">Status</h3>
+                <h3 class="green-headingtiny">Order History</h3>            
+                <h3 class="width-quarter green-headingtiny">Date</h3>
+                <h3 class="width-quarter green-headingtiny">Address</h3>
+                <h3 class="width-quarter green-headingtiny">Order</h3>
+                <h3 class="width-quarter green-headingtiny">Status</h3>
                 <hr>
                 <input type="hidden" id="completeOrdersInsertItemBefore">
             </div>
@@ -506,7 +506,7 @@
     <div data-role="page" id="checkout-complete">
         {% include 'header.html.twig' %}
         <div data-role="main" class="ui-content width-560">
-            <h3 class="green-heading-small">Order successfully placed, you lucky human!</h3>
+            <h3 class="green-heading">Order successfully placed, you lucky human!</h3>
         </div>
         
         {% include 'footer.html.twig' %}
@@ -536,13 +536,19 @@
             });     
         });
 
-        $("#loginForm").submit(function() {
+        $("#loginForm").submit(function(event) {
+            event.preventDefault();
             let email = $("#login-email").val(); 
             let password = $("#login-password").val();
 
             $.post( "/backend", { type:"login", email:email, password:password})
             .done(function(data) {
-                window.location ="/index";
+                if(data === "none") {
+                    alert("Username or password incorrect");
+                } else {
+                    window.location ="/index";
+                }
+                
             });
         })
 

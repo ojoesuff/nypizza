@@ -75,11 +75,11 @@ class Backend extends AbstractController {
                     $accountType = $repo->getAccountType();
                     return new Response($accountType);
                 } else {
-                    return new Response("error");
+                    return new Response("none");
                 }
 
             } else {
-                return new Response("error");
+                return new Response("none");
             }
         }
 
